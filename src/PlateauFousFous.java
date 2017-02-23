@@ -83,22 +83,23 @@ public class PlateauFousFous implements Partie1 {
 
 		Cellule[] cel = moveToCellule(move);
 
-		if (player.split("")[0].equals("b")) {
-			if (cel[1].getColor().equals("b")) {
-				return false;
-			}
-			if (cel[1].getColor().equals("n")) {
-				return true;
-			} else if (!NearbyFoe(cel[0]) && NearbyFoe(cel[1])) {
-				return true;
-			}
-		} else if (player.split("")[0].equals("n")) {
-			if (cel[1].getColor().equals("n")) {
-				return false;
-			}
-			if (cel[1].getColor().equals("b")) {
-				return true;
-			} else if (!NearbyFoe(cel[0]) && NearbyFoe(cel[1])) {
+		if (cel[0].getColor().equals(cel[1].getColor())) {
+			return false;
+		}
+
+		if (player.split("")[0].equals("b") 
+				&& ((cel[1].getColor().equals("n") && isNear(cel[0], cel[1])) || ((!NearbyFoe(cel[0]) && NearbyFoe(cel[1]))))) {
+			return true;
+		} else if (player.split("")[0].equals("n") 
+				&& ((cel[1].getColor().equals("b") && isNear(cel[0], cel[1])) || ((!NearbyFoe(cel[0]) && NearbyFoe(cel[1]))))) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isNear(Cellule pion, Cellule dest) {
+		for (Cellule c : getDiag(pion)) {
+			if (c != null && c.getI() == dest.getI() && c.getJ() == dest.getJ()) {
 				return true;
 			}
 		}
@@ -107,7 +108,7 @@ public class PlateauFousFous implements Partie1 {
 
 	@Override
 	public String[] mouvementPossibles(String player) {
-		
+
 		return null;
 	}
 
@@ -252,8 +253,7 @@ public class PlateauFousFous implements Partie1 {
 		PF.play("B1-C2", "blanc");
 		PF.AffichePlateau();
 		PF.saveToFile(fileName);
-		System.out.println(PF.estValide("C2-D3", "blanc"));
-
+		System.out.println(PF.estValide("F1-C4", "blanc"));
 
 	}
 }
