@@ -82,17 +82,17 @@ public class PlateauFousFous implements Partie1 {
 	public boolean estValide(String move, String player) {
 
 		Cellule[] cel = moveToCellule(move);
-
-		if (cel[0].getColor().equals(cel[1].getColor())) {
+		
+		if (cel[0] == null || cel[0].getColor().equals(cel[1].getColor())) {
 			return false;
-			
+
 		}
 
 		if (player.split("")[0].equals("b") && ((cel[1].getColor().equals("n") && isNear(cel[0], cel[1]))
-				|| ((!NearbyFoe(cel[0],player) && NearbyFoe(cel[1],player))))) {
+				|| ((!NearbyFoe(cel[0], player) && NearbyFoe(cel[1], player))))) {
 			return true;
 		} else if (player.split("")[0].equals("n") && ((cel[1].getColor().equals("b") && isNear(cel[0], cel[1]))
-				|| ((!NearbyFoe(cel[0],player) && NearbyFoe(cel[1],player))))) {
+				|| ((!NearbyFoe(cel[0], player) && NearbyFoe(cel[1], player))))) {
 			return true;
 		}
 		return false;
@@ -161,82 +161,61 @@ public class PlateauFousFous implements Partie1 {
 
 	private Cellule[][] getDiag(Cellule cel) {
 		Cellule[][] res = new Cellule[4][7];
-	
+
 		int i = cel.getI() + 1;
 		int j = cel.getJ() + 1;
 		int iter = 0;
 		while (i < 8 && j < 8) {
-			// if (this.Plateau[i][j].getColor().equals("b") ||
-			// this.Plateau[i][j].getColor().equals("n")) {
-			// res[0] = this.Plateau[i][j];
-			// break;
-			// }
 			res[0][iter] = this.Plateau[i][j];
-			//System.out.println(this.Plateau[i][j].getId());
-	
+
 			iter++;
 			i++;
 			j++;
 		}
-	
+
 		i = cel.getI() - 1;
 		j = cel.getJ() - 1;
 		iter = 0;
 		while (i >= 0 && j >= 0) {
-			// if (this.Plateau[i][j].getColor().equals("b") ||
-			// this.Plateau[i][j].getColor().equals("n")) {
-			// res[1] = this.Plateau[i][j];
-			// break;
-			// }
-	
+
 			res[1][iter] = this.Plateau[i][j];
-			//System.out.println(this.Plateau[i][j].getId());
 			iter++;
 			i--;
 			j--;
 		}
-	
+
 		i = cel.getI() - 1;
 		j = cel.getJ() + 1;
 		iter = 0;
 		while (i >= 0 && j < 8) {
-			// if (this.Plateau[i][j].getColor().equals("b") ||
-			// this.Plateau[i][j].getColor().equals("n")) {
-			// res[2] = this.Plateau[i][j];
-			// break;
-			// }
+
 			res[2][iter] = this.Plateau[i][j];
-			//System.out.println(this.Plateau[i][j].getId());
+
 			iter++;
 			i--;
 			j++;
 		}
-	
+
 		i = cel.getI() + 1;
 		j = cel.getJ() - 1;
 		iter = 0;
 		while (i < 8 && j >= 0) {
-			// if (this.Plateau[i][j].getColor().equals("b") ||
-			// this.Plateau[i][j].getColor().equals("n")) {
-			// res[3] = this.Plateau[i][j];
-			// break;
-			// }
+
 			res[3][iter] = this.Plateau[i][j];
-			//System.out.println(this.Plateau[i][j].getId());
 			iter++;
 			i++;
 			j--;
 		}
-	
+
 		return res;
 	}
 
-	private Cellule[] getDiagAll(Cellule cel){
+	private Cellule[] getDiagAll(Cellule cel) {
 		Cellule[] res = new Cellule[256];
 		int iter = 0;
-		for(Cellule[] cc : getDiag(cel)){
-			for(Cellule c : cc){
-				if(c!=null){
+		for (Cellule[] cc : getDiag(cel)) {
+			for (Cellule c : cc) {
+				if (c != null) {
 					res[iter] = c;
 					iter++;
 				}
@@ -245,25 +224,24 @@ public class PlateauFousFous implements Partie1 {
 		return res;
 	}
 
-	private Cellule[] getDiagNear(Cellule cel){
+	private Cellule[] getDiagNear(Cellule cel) {
 		Cellule[][] diag = getDiag(cel);
 		Cellule[] res = new Cellule[4];
-		for(int i=0;i<4;i++){
-			loop:
-			for(int j=0;j<7;j++){
-				//if(diag[i][j]!=null)System.out.println(diag[i][j].getId());
-				if(diag[i][j] != null && (diag[i][j].getColor().equals("b") || diag[i][j].getColor().equals("n"))){
-					res[i] = diag[i][j];	
+		for (int i = 0; i < 4; i++) {
+			loop: for (int j = 0; j < 7; j++) {
+				// if(diag[i][j]!=null)System.out.println(diag[i][j].getId());
+				if (diag[i][j] != null && (diag[i][j].getColor().equals("b") || diag[i][j].getColor().equals("n"))) {
+					res[i] = diag[i][j];
 					break loop;
 				}
-				
+
 			}
-		//System.out.println("space");
+			// System.out.println("space");
 		}
 		return res;
 	}
 
-	private boolean NearbyFoe(Cellule cell,String player) {
+	private boolean NearbyFoe(Cellule cell, String player) {
 		if (player.split("")[0].equals("b")) {
 			for (Cellule c : getDiagNear(cell)) {
 				if (c != null && c.getColor().equals("n")) {
@@ -271,7 +249,7 @@ public class PlateauFousFous implements Partie1 {
 				}
 			}
 		}
-	
+
 		else if (player.split("")[0].equals("n")) {
 			for (Cellule c : getDiagNear(cell)) {
 				if (c != null && c.getColor().equals("b")) {
@@ -279,21 +257,24 @@ public class PlateauFousFous implements Partie1 {
 				}
 			}
 		}
-	
+
 		return false;
-	
+
 	}
 
 	private Cellule[] moveToCellule(String move) {
 		Cellule[] res = new Cellule[2];
-		String[] data = move.split("-");
-		String pion = data[0];
-		String dest = data[1];
+		try{
+			String[] data = move.split("-");
+			String pion = data[0];
+			String dest = data[1];
 	
-		res[0] = this.Plateau[Integer.parseInt(pion.split("")[1]) - 1][pion.toCharArray()[0] - 'A'];
-		res[1] = this.Plateau[Integer.parseInt(dest.split("")[1]) - 1][dest.toCharArray()[0] - 'A'];
-		return res;
-	
+			res[0] = this.Plateau[Integer.parseInt(pion.split("")[1]) - 1][pion.toCharArray()[0] - 'A'];
+			res[1] = this.Plateau[Integer.parseInt(dest.split("")[1]) - 1][dest.toCharArray()[0] - 'A'];
+		}catch(ArrayIndexOutOfBoundsException e){
+		}
+			return res;
+
 	}
 
 	private String CelluleToMove(Cellule pion, Cellule dest) {
@@ -311,15 +292,15 @@ public class PlateauFousFous implements Partie1 {
 		}
 		System.out.println("% ABCDEFGH");
 	}
-	
-	public void AfficheMovePossible(String player){
+
+	public void AfficheMovePossible(String player) {
 		int nl = 0;
 		for (String coup : mouvementPossibles(player)) {
 			if (coup != null) {
-				System.out.print("{"+coup+"}");
-				if(nl>8){
+				System.out.print("{" + coup + "}");
+				if (nl > 8) {
 					System.out.println("");
-					nl=-1;
+					nl = -1;
 				}
 				nl++;
 			}
@@ -334,13 +315,12 @@ public class PlateauFousFous implements Partie1 {
 		PF.saveToFile(fileName);
 		PF.setFromFile(fileName);
 		PF.AffichePlateau();
-		//PF.play("B1-C2", "blanc");
+		// PF.play("B1-C2", "blanc");
 		PF.AffichePlateau();
 		PF.saveToFile(fileName);
 		System.out.println(PF.estValide("B2-C2", "blanc"));
 		PF.AfficheMovePossible("blanc");
-		System.out.println(PF.isNear(new Cellule(1,1,"-"), new Cellule(1,2,"n")));
-
+		System.out.println(PF.isNear(new Cellule(1, 1, "-"), new Cellule(1, 2, "n")));
 
 	}
 }
