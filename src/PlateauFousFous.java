@@ -89,10 +89,10 @@ public class PlateauFousFous implements Partie1 {
 		}
 
 		if (player.split("")[0].equals("b") && ((cel[1].getColor().equals("n") && isNear(cel[0], cel[1]))
-				|| ((!NearbyFoe(cel[0]) && NearbyFoe(cel[1]))))) {
+				|| ((!NearbyFoe(cel[0],player) && NearbyFoe(cel[1],player))))) {
 			return true;
 		} else if (player.split("")[0].equals("n") && ((cel[1].getColor().equals("b") && isNear(cel[0], cel[1]))
-				|| ((!NearbyFoe(cel[0]) && NearbyFoe(cel[1]))))) {
+				|| ((!NearbyFoe(cel[0],player) && NearbyFoe(cel[1],player))))) {
 			return true;
 		}
 		return false;
@@ -263,8 +263,8 @@ public class PlateauFousFous implements Partie1 {
 		return res;
 	}
 
-	private boolean NearbyFoe(Cellule cell) {
-		if (cell.getColor().equals("b")) {
+	private boolean NearbyFoe(Cellule cell,String player) {
+		if (player.split("")[0].equals("b")) {
 			for (Cellule c : getDiagNear(cell)) {
 				if (c != null && c.getColor().equals("n")) {
 					return true;
@@ -272,7 +272,7 @@ public class PlateauFousFous implements Partie1 {
 			}
 		}
 	
-		else if (cell.getColor().equals("n")) {
+		else if (player.split("")[0].equals("n")) {
 			for (Cellule c : getDiagNear(cell)) {
 				if (c != null && c.getColor().equals("b")) {
 					return true;
@@ -313,11 +313,19 @@ public class PlateauFousFous implements Partie1 {
 	}
 	
 	public void AfficheMovePossible(String player){
+		int nl = 0;
 		for (String coup : mouvementPossibles(player)) {
 			if (coup != null) {
-				System.out.println(coup);
+				System.out.print("{"+coup+"}");
+				if(nl>8){
+					System.out.println("");
+					nl=-1;
+				}
+				nl++;
 			}
 		}
+		System.out.println("");
+		System.out.println("");
 	}
 
 	public static void main(String[] args) {
@@ -326,11 +334,12 @@ public class PlateauFousFous implements Partie1 {
 		PF.saveToFile(fileName);
 		PF.setFromFile(fileName);
 		PF.AffichePlateau();
-		PF.play("B1-C2", "blanc");
+		//PF.play("B1-C2", "blanc");
 		PF.AffichePlateau();
 		PF.saveToFile(fileName);
-		System.out.println(PF.estValide("B3-A2", "blanc"));
+		System.out.println(PF.estValide("B2-C2", "blanc"));
 		PF.AfficheMovePossible("blanc");
+		System.out.println(PF.isNear(new Cellule(1,1,"-"), new Cellule(1,2,"n")));
 
 
 	}
