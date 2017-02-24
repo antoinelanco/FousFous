@@ -85,31 +85,36 @@ public class PlateauFousFous implements Partie1 {
 
 		if (cel[0].getColor().equals(cel[1].getColor())) {
 			return false;
+			
 		}
 
-		if (player.split("")[0].equals("b") 
-				&& ((cel[1].getColor().equals("n") && isNear(cel[0], cel[1])) || ((!NearbyFoe(cel[0]) && NearbyFoe(cel[1]))))) {
+		if (player.split("")[0].equals("b") && ((cel[1].getColor().equals("n") && isNear(cel[0], cel[1]))
+				|| ((!NearbyFoe(cel[0]) && NearbyFoe(cel[1]))))) {
 			return true;
-		} else if (player.split("")[0].equals("n") 
-				&& ((cel[1].getColor().equals("b") && isNear(cel[0], cel[1])) || ((!NearbyFoe(cel[0]) && NearbyFoe(cel[1]))))) {
+		} else if (player.split("")[0].equals("n") && ((cel[1].getColor().equals("b") && isNear(cel[0], cel[1]))
+				|| ((!NearbyFoe(cel[0]) && NearbyFoe(cel[1]))))) {
 			return true;
-		}
-		return false;
-	}
-
-	private boolean isNear(Cellule pion, Cellule dest) {
-		for (Cellule c : getDiag(pion)) {
-			if (c != null && c.getI() == dest.getI() && c.getJ() == dest.getJ()) {
-				return true;
-			}
 		}
 		return false;
 	}
 
 	@Override
 	public String[] mouvementPossibles(String player) {
-
-		return null;
+		String[] res = new String[100];
+		int iter = 0;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (this.Plateau[i][j].getColor().equals(player.split("")[0])) {
+					for (Cellule c : getDiagAll(this.Plateau[i][j])) {
+						if (c != null && estValide(CelluleToMove(this.Plateau[i][j], c), player)) {
+							res[iter] = CelluleToMove(this.Plateau[i][j], c);
+							iter++;
+						}
+					}
+				}
+			}
+		}
+		return res;
 	}
 
 	@Override
@@ -124,93 +129,6 @@ public class PlateauFousFous implements Partie1 {
 			System.out.println("Il n'y a pas de pion " + player + " ici");
 		}
 
-	}
-
-	private Cellule[] getDiag(Cellule cel) {
-		Cellule[] res = new Cellule[4];
-
-		int i = cel.getI() + 1;
-		int j = cel.getJ() + 1;
-		while (i < 8 && j < 8) {
-			if (this.Plateau[i][j].getColor().equals("b") || this.Plateau[i][j].getColor().equals("n")) {
-				res[0] = this.Plateau[i][j];
-				break;
-			}
-			i++;
-			j++;
-		}
-
-		i = cel.getI() - 1;
-		j = cel.getJ() - 1;
-		while (i > 0 && j > 0) {
-			if (this.Plateau[i][j].getColor().equals("b") || this.Plateau[i][j].getColor().equals("n")) {
-				res[1] = this.Plateau[i][j];
-				break;
-			}
-			i--;
-			j--;
-		}
-
-		i = cel.getI() - 1;
-		j = cel.getJ() + 1;
-		while (i > 0 && j < 8) {
-			if (this.Plateau[i][j].getColor().equals("b") || this.Plateau[i][j].getColor().equals("n")) {
-				res[2] = this.Plateau[i][j];
-				break;
-			}
-			i--;
-			j++;
-		}
-
-		i = cel.getI() + 1;
-		j = cel.getJ() - 1;
-		while (i < 8 && j > 0) {
-			if (this.Plateau[i][j].getColor().equals("b") || this.Plateau[i][j].getColor().equals("n")) {
-				res[3] = this.Plateau[i][j];
-				break;
-			}
-			i++;
-			j--;
-		}
-
-		return res;
-	}
-
-	private boolean NearbyFoe(Cellule cell) {
-		if (cell.getColor().equals("b")) {
-			for (Cellule c : getDiag(cell)) {
-				if (c != null && c.getColor().equals("n")) {
-					return true;
-				}
-			}
-		}
-
-		else if (cell.getColor().equals("n")) {
-			for (Cellule c : getDiag(cell)) {
-				if (c != null && c.getColor().equals("b")) {
-					return true;
-				}
-			}
-		}
-
-		return false;
-
-	}
-
-	private Cellule[] moveToCellule(String move) {
-		Cellule[] res = new Cellule[2];
-		String[] data = move.split("-");
-		String pion = data[0];
-		String dest = data[1];
-
-		res[0] = this.Plateau[Integer.parseInt(pion.split("")[1]) - 1][pion.toCharArray()[0] - 'A'];
-		res[1] = this.Plateau[Integer.parseInt(dest.split("")[1]) - 1][dest.toCharArray()[0] - 'A'];
-		return res;
-
-	}
-
-	private String CelluleToMove(Cellule pion, Cellule dest) {
-		return pion.getId() + "-" + dest.getId();
 	}
 
 	@Override
@@ -232,6 +150,156 @@ public class PlateauFousFous implements Partie1 {
 		}
 	}
 
+	private boolean isNear(Cellule pion, Cellule dest) {
+		for (Cellule c : getDiagNear(pion)) {
+			if (c != null && c.getI() == dest.getI() && c.getJ() == dest.getJ()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private Cellule[][] getDiag(Cellule cel) {
+		Cellule[][] res = new Cellule[4][7];
+	
+		int i = cel.getI() + 1;
+		int j = cel.getJ() + 1;
+		int iter = 0;
+		while (i < 8 && j < 8) {
+			// if (this.Plateau[i][j].getColor().equals("b") ||
+			// this.Plateau[i][j].getColor().equals("n")) {
+			// res[0] = this.Plateau[i][j];
+			// break;
+			// }
+			res[0][iter] = this.Plateau[i][j];
+			//System.out.println(this.Plateau[i][j].getId());
+	
+			iter++;
+			i++;
+			j++;
+		}
+	
+		i = cel.getI() - 1;
+		j = cel.getJ() - 1;
+		iter = 0;
+		while (i >= 0 && j >= 0) {
+			// if (this.Plateau[i][j].getColor().equals("b") ||
+			// this.Plateau[i][j].getColor().equals("n")) {
+			// res[1] = this.Plateau[i][j];
+			// break;
+			// }
+	
+			res[1][iter] = this.Plateau[i][j];
+			//System.out.println(this.Plateau[i][j].getId());
+			iter++;
+			i--;
+			j--;
+		}
+	
+		i = cel.getI() - 1;
+		j = cel.getJ() + 1;
+		iter = 0;
+		while (i >= 0 && j < 8) {
+			// if (this.Plateau[i][j].getColor().equals("b") ||
+			// this.Plateau[i][j].getColor().equals("n")) {
+			// res[2] = this.Plateau[i][j];
+			// break;
+			// }
+			res[2][iter] = this.Plateau[i][j];
+			//System.out.println(this.Plateau[i][j].getId());
+			iter++;
+			i--;
+			j++;
+		}
+	
+		i = cel.getI() + 1;
+		j = cel.getJ() - 1;
+		iter = 0;
+		while (i < 8 && j >= 0) {
+			// if (this.Plateau[i][j].getColor().equals("b") ||
+			// this.Plateau[i][j].getColor().equals("n")) {
+			// res[3] = this.Plateau[i][j];
+			// break;
+			// }
+			res[3][iter] = this.Plateau[i][j];
+			//System.out.println(this.Plateau[i][j].getId());
+			iter++;
+			i++;
+			j--;
+		}
+	
+		return res;
+	}
+
+	private Cellule[] getDiagAll(Cellule cel){
+		Cellule[] res = new Cellule[256];
+		int iter = 0;
+		for(Cellule[] cc : getDiag(cel)){
+			for(Cellule c : cc){
+				if(c!=null){
+					res[iter] = c;
+					iter++;
+				}
+			}
+		}
+		return res;
+	}
+
+	private Cellule[] getDiagNear(Cellule cel){
+		Cellule[][] diag = getDiag(cel);
+		Cellule[] res = new Cellule[4];
+		for(int i=0;i<4;i++){
+			loop:
+			for(int j=0;j<7;j++){
+				//if(diag[i][j]!=null)System.out.println(diag[i][j].getId());
+				if(diag[i][j] != null && (diag[i][j].getColor().equals("b") || diag[i][j].getColor().equals("n"))){
+					res[i] = diag[i][j];	
+					break loop;
+				}
+				
+			}
+		//System.out.println("space");
+		}
+		return res;
+	}
+
+	private boolean NearbyFoe(Cellule cell) {
+		if (cell.getColor().equals("b")) {
+			for (Cellule c : getDiagNear(cell)) {
+				if (c != null && c.getColor().equals("n")) {
+					return true;
+				}
+			}
+		}
+	
+		else if (cell.getColor().equals("n")) {
+			for (Cellule c : getDiagNear(cell)) {
+				if (c != null && c.getColor().equals("b")) {
+					return true;
+				}
+			}
+		}
+	
+		return false;
+	
+	}
+
+	private Cellule[] moveToCellule(String move) {
+		Cellule[] res = new Cellule[2];
+		String[] data = move.split("-");
+		String pion = data[0];
+		String dest = data[1];
+	
+		res[0] = this.Plateau[Integer.parseInt(pion.split("")[1]) - 1][pion.toCharArray()[0] - 'A'];
+		res[1] = this.Plateau[Integer.parseInt(dest.split("")[1]) - 1][dest.toCharArray()[0] - 'A'];
+		return res;
+	
+	}
+
+	private String CelluleToMove(Cellule pion, Cellule dest) {
+		return pion.getId() + "-" + dest.getId();
+	}
+
 	public void AffichePlateau() {
 		System.out.println("% ABCDEFGH");
 		for (int i = 0; i < 8; i++) {
@@ -243,6 +311,14 @@ public class PlateauFousFous implements Partie1 {
 		}
 		System.out.println("% ABCDEFGH");
 	}
+	
+	public void AfficheMovePossible(String player){
+		for (String coup : mouvementPossibles(player)) {
+			if (coup != null) {
+				System.out.println(coup);
+			}
+		}
+	}
 
 	public static void main(String[] args) {
 		String fileName = "test.txt";
@@ -253,7 +329,9 @@ public class PlateauFousFous implements Partie1 {
 		PF.play("B1-C2", "blanc");
 		PF.AffichePlateau();
 		PF.saveToFile(fileName);
-		System.out.println(PF.estValide("F1-C4", "blanc"));
+		System.out.println(PF.estValide("B3-A2", "blanc"));
+		PF.AfficheMovePossible("blanc");
+
 
 	}
 }
