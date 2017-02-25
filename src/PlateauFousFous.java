@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class PlateauFousFous implements Partie1 {
 	private Cellule[][] Plateau;
@@ -24,6 +23,20 @@ public class PlateauFousFous implements Partie1 {
 				}
 			}
 		}
+	}
+
+	public PlateauFousFous(Cellule[][] copy) {
+		this.Plateau = new Cellule[8][8];
+
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				this.Plateau[i][j] = new Cellule(copy[i][j].getI(), copy[i][j].getJ(), copy[i][j].getColor());
+			}
+		}
+	}
+
+	public PlateauFousFous copy() {
+		return new PlateauFousFous(this.Plateau);
 	}
 
 	@Override
@@ -82,7 +95,7 @@ public class PlateauFousFous implements Partie1 {
 	public boolean estValide(String move, String player) {
 
 		Cellule[] cel = moveToCellule(move);
-		
+
 		if (cel[0] == null || cel[0].getColor().equals(cel[1].getColor())) {
 			return false;
 
@@ -125,6 +138,7 @@ public class PlateauFousFous implements Partie1 {
 		if (player.split("")[0].equals(cel[0].getColor())) {
 			cel[1].setColor(cel[0].getColor());
 			cel[0].setColor("-");
+			// System.out.println("Play");
 		} else {
 			System.out.println("Il n'y a pas de pion " + player + " ici");
 		}
@@ -133,21 +147,31 @@ public class PlateauFousFous implements Partie1 {
 
 	@Override
 	public boolean finDePartie() {
-		int b = 0, n = 0;
+		return getPionBlanc() == 0 || getPionNoir() == 0;
+	}
+
+	public int getPionBlanc() {
+		int res = 0;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				if (this.Plateau[i][j].equals("b")) {
-					b++;
-				} else if (this.Plateau[i][j].equals("n")) {
-					n++;
+				if (this.Plateau[i][j].getColor().equals("b")) {
+					res++;
 				}
 			}
 		}
-		if (b == 0 || n == 0) {
-			return true;
-		} else {
-			return false;
+		return res;
+	}
+
+	public int getPionNoir() {
+		int res = 0;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (this.Plateau[i][j].getColor().equals("n")) {
+					res++;
+				}
+			}
 		}
+		return res;
 	}
 
 	private boolean isNear(Cellule pion, Cellule dest) {
@@ -167,6 +191,9 @@ public class PlateauFousFous implements Partie1 {
 		int iter = 0;
 		while (i < 8 && j < 8) {
 			res[0][iter] = this.Plateau[i][j];
+			if (this.Plateau[i][j].getColor().equals("b") || this.Plateau[i][j].getColor().equals("n")) {
+				break;
+			}
 
 			iter++;
 			i++;
@@ -179,6 +206,9 @@ public class PlateauFousFous implements Partie1 {
 		while (i >= 0 && j >= 0) {
 
 			res[1][iter] = this.Plateau[i][j];
+			if (this.Plateau[i][j].getColor().equals("b") || this.Plateau[i][j].getColor().equals("n")) {
+				break;
+			}
 			iter++;
 			i--;
 			j--;
@@ -190,6 +220,9 @@ public class PlateauFousFous implements Partie1 {
 		while (i >= 0 && j < 8) {
 
 			res[2][iter] = this.Plateau[i][j];
+			if (this.Plateau[i][j].getColor().equals("b") || this.Plateau[i][j].getColor().equals("n")) {
+				break;
+			}
 
 			iter++;
 			i--;
@@ -202,6 +235,9 @@ public class PlateauFousFous implements Partie1 {
 		while (i < 8 && j >= 0) {
 
 			res[3][iter] = this.Plateau[i][j];
+			if (this.Plateau[i][j].getColor().equals("b") || this.Plateau[i][j].getColor().equals("n")) {
+				break;
+			}
 			iter++;
 			i++;
 			j--;
@@ -262,18 +298,21 @@ public class PlateauFousFous implements Partie1 {
 
 	}
 
+	// private boolean emptyCelToCel(Cellule pion, Cellule dest){
+	// }
+
 	private Cellule[] moveToCellule(String move) {
 		Cellule[] res = new Cellule[2];
-		try{
+		try {
 			String[] data = move.split("-");
 			String pion = data[0];
 			String dest = data[1];
-	
+
 			res[0] = this.Plateau[Integer.parseInt(pion.split("")[1]) - 1][pion.toCharArray()[0] - 'A'];
 			res[1] = this.Plateau[Integer.parseInt(dest.split("")[1]) - 1][dest.toCharArray()[0] - 'A'];
-		}catch(ArrayIndexOutOfBoundsException e){
+		} catch (ArrayIndexOutOfBoundsException e) {
 		}
-			return res;
+		return res;
 
 	}
 
@@ -309,6 +348,10 @@ public class PlateauFousFous implements Partie1 {
 		System.out.println("");
 	}
 
+	public void AfficheGUI() {
+
+	}
+
 	public static void main(String[] args) {
 		String fileName = "test.txt";
 		PlateauFousFous PF = new PlateauFousFous();
@@ -321,6 +364,11 @@ public class PlateauFousFous implements Partie1 {
 		System.out.println(PF.estValide("B2-C2", "blanc"));
 		PF.AfficheMovePossible("blanc");
 		System.out.println(PF.isNear(new Cellule(1, 1, "-"), new Cellule(1, 2, "n")));
+
+		PlateauFousFous copy = PF.copy();
+		copy.play("B1-C2", "blanc");
+
+		PF.AffichePlateau();
 
 	}
 }
