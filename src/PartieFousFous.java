@@ -7,16 +7,18 @@ public class PartieFousFous {
 
 		String[] lesJoueurs = { jBlanc, jNoir };
 		Heuristiques h = new Heuristiques();
-		AlphaBeta algoNoir = new AlphaBeta(h, jNoir, jBlanc, 5);
-		AlphaBeta algoBlanc = new AlphaBeta(h, jBlanc, jNoir, 5);
+		AlphaBeta algoNoir = new AlphaBeta(h, jNoir, jBlanc, 6);
+		AlphaBeta algoBlanc = new AlphaBeta(h, jBlanc, jNoir, 1);
 		AlphaBeta[] algo = { algoBlanc, algoNoir };
 
 		PlateauFousFous Plateau = new PlateauFousFous();
 		int jnum = 0;
+		Plateau.AfficheGUI();
 		while (!Plateau.finDePartie()) {
 
 			System.out.println("Joueur " + lesJoueurs[jnum]);
 			Plateau.AffichePlateau();
+			Plateau.RefreshGUI();
 			System.out.println("Les mouvement possibles :");
 			Plateau.AfficheMovePossible(lesJoueurs[jnum]);
 

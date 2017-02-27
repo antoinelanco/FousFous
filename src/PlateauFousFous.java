@@ -7,9 +7,11 @@ import java.io.IOException;
 
 public class PlateauFousFous implements Partie1 {
 	private Cellule[][] Plateau;
+	private Graph GUI;
 
 	public PlateauFousFous() {
-
+		
+		
 		this.Plateau = new Cellule[8][8];
 
 		for (int i = 0; i < 8; i++) {
@@ -349,7 +351,10 @@ public class PlateauFousFous implements Partie1 {
 	}
 
 	public void AfficheGUI() {
-
+		this.GUI = new Graph(this.Plateau);
+	}
+	public void RefreshGUI(){
+		this.GUI.refresh();
 	}
 
 	public static void main(String[] args) {
