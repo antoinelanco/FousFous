@@ -1,9 +1,7 @@
 import java.io.IOException;
-import java.util.Scanner;
 
 public class PartieFousFousWithMe {
-	@SuppressWarnings("resource")
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		String jBlanc = "blanc";
 		String jNoir = "noir";
 
@@ -13,17 +11,22 @@ public class PartieFousFousWithMe {
 
 		PlateauFousFous Plateau = new PlateauFousFous();
 		int jnum = 0;
-		Scanner input = new Scanner(System.in);
+		Plateau.AfficheGUI();
+		String move = null;
 		while (!Plateau.finDePartie()) {
 
 			System.out.println("Joueur " + lesJoueurs[jnum]);
+			Plateau.RefreshGUI();
 			Plateau.AffichePlateau();
 			System.out.println("Les mouvement possibles :");
 			Plateau.AfficheMovePossible(lesJoueurs[jnum]);
 
 			if (jnum == 0) {
-				System.out.print("Move :");
-				String move = input.nextLine();
+				while (!Plateau.moveable()) {
+					Thread.sleep(100);
+				}
+				move = Plateau.move();
+				Plateau.setmoveablefalse();
 				if (Plateau.estValide(move, lesJoueurs[jnum])) {
 					Plateau.play(move, lesJoueurs[jnum]);
 					jnum = 1 - jnum;
@@ -38,5 +41,7 @@ public class PartieFousFousWithMe {
 				jnum = 1 - jnum;
 			}
 		}
+		Plateau.RefreshGUI();
+		System.out.println("Le joueur " + lesJoueurs[1 - jnum] + " a gg");
 	}
 }

@@ -7,8 +7,8 @@ public class PartieFousFous {
 
 		String[] lesJoueurs = { jBlanc, jNoir };
 		Heuristiques h = new Heuristiques();
-		AlphaBeta algoNoir = new AlphaBeta(h, jNoir, jBlanc, 6);
-		AlphaBeta algoBlanc = new AlphaBeta(h, jBlanc, jNoir, 1);
+		AlphaBeta algoNoir = new AlphaBeta(h, jNoir, jBlanc, 4);
+		AlphaBeta algoBlanc = new AlphaBeta(h, jBlanc, jNoir, 4);
 		AlphaBeta[] algo = { algoBlanc, algoNoir };
 
 		PlateauFousFous Plateau = new PlateauFousFous();
