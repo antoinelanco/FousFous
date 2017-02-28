@@ -1,5 +1,9 @@
 import java.io.IOException;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 public class PartieFousFousWithMe {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		String jBlanc = "blanc";
@@ -43,5 +47,15 @@ public class PartieFousFousWithMe {
 		}
 		Plateau.RefreshGUI();
 		System.out.println("Le joueur " + lesJoueurs[1 - jnum] + " a gg");
+		JFrame fenetre = new JFrame();
+		fenetre.setTitle("Victoire!");
+		fenetre.pack();
+		fenetre.setSize(400, 100);
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel panel = new JPanel();
+		JLabel label = new JLabel("Le joueur " + lesJoueurs[1 - jnum] + " a gg");
+		panel.add(label);
+		fenetre.setContentPane(panel);
+		fenetre.setVisible(true);
 	}
 }
