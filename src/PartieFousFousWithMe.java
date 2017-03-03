@@ -8,7 +8,7 @@ public class PartieFousFousWithMe {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		String jBlanc = "blanc";
 		String jNoir = "noir";
-
+		
 		String[] lesJoueurs = { jBlanc, jNoir };
 		Heuristiques h = new Heuristiques();
 		AlphaBeta algoNoir = new AlphaBeta(h, jNoir, jBlanc, 4);
@@ -20,7 +20,7 @@ public class PartieFousFousWithMe {
 		while (!Plateau.finDePartie()) {
 
 			System.out.println("Joueur " + lesJoueurs[jnum]);
-			GUI.refresh();
+			GUI.refresh(lesJoueurs[1 - jnum]);
 			Plateau.AffichePlateau();
 			System.out.println("Les mouvement possibles :");
 			Plateau.AfficheMovePossible(lesJoueurs[jnum]);
@@ -34,6 +34,7 @@ public class PartieFousFousWithMe {
 				if (Plateau.estValide(move, lesJoueurs[jnum])) {
 					Plateau.play(move, lesJoueurs[jnum]);
 					jnum = 1 - jnum;
+					
 				} else {
 					System.out.println("Mouvement non valide");
 				}
@@ -45,7 +46,7 @@ public class PartieFousFousWithMe {
 				jnum = 1 - jnum;
 			}
 		}
-		GUI.refresh();
-		GUI.Victoir(lesJoueurs[1 - jnum]);
+		GUI.refresh(lesJoueurs[1 - jnum]);
+		GUI.Victoire(lesJoueurs[1 - jnum]);
 	}
 }

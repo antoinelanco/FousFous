@@ -18,7 +18,7 @@ public class PartieFousFous {
 
 			System.out.println("Joueur " + lesJoueurs[jnum]);
 			Plateau.AffichePlateau();
-			GUI.refresh();
+			GUI.refresh(lesJoueurs[jnum]);
 			System.out.println("Les mouvement possibles :");
 			Plateau.AfficheMovePossible(lesJoueurs[jnum]);
 

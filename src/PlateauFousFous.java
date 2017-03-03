@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class PlateauFousFous implements Partie1 {
 	public Cellule[][] Plateau;
+	
 	public PlateauFousFous() {
 
 		this.Plateau = new Cellule[8][8];
