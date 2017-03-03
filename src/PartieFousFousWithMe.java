@@ -46,16 +46,6 @@ public class PartieFousFousWithMe {
 			}
 		}
 		GUI.refresh();
-		System.out.println("Le joueur " + lesJoueurs[1 - jnum] + " a gg");
-		JFrame fenetre = new JFrame();
-		fenetre.setTitle("Victoire!");
-		fenetre.pack();
-		fenetre.setSize(400, 100);
-		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JPanel panel = new JPanel();
-		JLabel label = new JLabel("Le joueur " + lesJoueurs[1 - jnum] + " a gg");
-		panel.add(label);
-		fenetre.setContentPane(panel);
-		fenetre.setVisible(true);
+		GUI.Victoir(lesJoueurs[1 - jnum]);
 	}
 }

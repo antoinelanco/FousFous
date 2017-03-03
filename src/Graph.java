@@ -1,9 +1,11 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Graph {
@@ -14,14 +16,29 @@ public class Graph {
 		this.Plateau = Plateau;
 		JFrame fenetre = new JFrame();
 		fenetre.setTitle("FousFous");
-		fenetre.setSize(810, 845);
+		fenetre.setSize(1010, 845);
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setResizable(false);
-		this.pan = new Panneau(Plateau.Plateau);
+		this.pan = new Panneau(Plateau);
 		fenetre.setContentPane(pan);
 		fenetre.setVisible(true);
 	}
+	
+	public void Victoir(String player){
+		System.out.println("Le joueur " + player + " a gg");
+		JFrame fenetre = new JFrame();
+		fenetre.setTitle("Victoire!");
+		fenetre.pack();
+		fenetre.setSize(400, 100);
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel panel = new JPanel();
+		JLabel label = new JLabel("Le joueur " + player + " a gg");
+		panel.add(label);
+		fenetre.setContentPane(panel);
+		fenetre.setVisible(true);
+	}
+	
 
 	public void refresh() {
 		this.pan.repaint();
@@ -44,13 +61,15 @@ public class Graph {
 class Panneau extends JPanel implements MouseListener {
 
 	private Cellule[][] tab;
+	private PlateauFousFous Plateau;
 	private String pion;
 	private String dest;
 	private String move;
 	private boolean moveable;
 
-	public Panneau(Cellule[][] tab) {
-		this.tab = tab;
+	public Panneau(PlateauFousFous Plateau) {
+		this.tab = Plateau.Plateau;
+		this.Plateau = Plateau;
 		super.addMouseListener(this);
 	}
 
@@ -78,7 +97,13 @@ class Panneau extends JPanel implements MouseListener {
 
 			}
 		}
+		
+		g.setColor(Color.BLACK);
+		g.drawString(Integer.toString(this.Plateau.getPionBlanc()), 850, 100);
+		
+
 	}
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
