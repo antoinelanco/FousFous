@@ -6,12 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class PlateauFousFous implements Partie1 {
-	private Cellule[][] Plateau;
-	private Graph GUI;
-	private boolean movec;
-
+	public Cellule[][] Plateau;
 	public PlateauFousFous() {
-		this.movec = true;
 
 		this.Plateau = new Cellule[8][8];
 
@@ -29,7 +25,6 @@ public class PlateauFousFous implements Partie1 {
 	}
 
 	public PlateauFousFous(Cellule[][] copy) {
-		this.movec = true;
 		this.Plateau = new Cellule[8][8];
 
 		for (int i = 0; i < 8; i++) {
@@ -349,25 +344,6 @@ public class PlateauFousFous implements Partie1 {
 		System.out.println("");
 	}
 
-	public void AfficheGUI() {
-		this.GUI = new Graph(this.Plateau);
-	}
-
-	public void RefreshGUI() {
-		this.GUI.refresh();
-	}
-
-	public boolean moveable() {
-		return this.GUI.getmoveable();
-	}
-
-	public String move() {
-		return this.GUI.getmove();
-	}
-
-	public void setmoveablefalse() {
-		this.GUI.setmovealefalse();
-	}
 
 	public static void main(String[] args) {
 		String fileName = "test.txt";

@@ -13,12 +13,12 @@ public class PartieFousFous {
 
 		PlateauFousFous Plateau = new PlateauFousFous();
 		int jnum = 0;
-		Plateau.AfficheGUI();
+		Graph GUI = new Graph(Plateau);
 		while (!Plateau.finDePartie()) {
 
 			System.out.println("Joueur " + lesJoueurs[jnum]);
 			Plateau.AffichePlateau();
-			Plateau.RefreshGUI();
+			GUI.refresh();
 			System.out.println("Les mouvement possibles :");
 			Plateau.AfficheMovePossible(lesJoueurs[jnum]);
 

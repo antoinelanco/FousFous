@@ -8,15 +8,17 @@ import javax.swing.JPanel;
 
 public class Graph {
 	private Panneau pan;
+	private PlateauFousFous Plateau;
 
-	public Graph(Cellule[][] tab) {
+	public Graph(PlateauFousFous Plateau) {
+		this.Plateau = Plateau;
 		JFrame fenetre = new JFrame();
 		fenetre.setTitle("FousFous");
 		fenetre.setSize(810, 845);
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setResizable(false);
-		this.pan = new Panneau(tab);
+		this.pan = new Panneau(Plateau.Plateau);
 		fenetre.setContentPane(pan);
 		fenetre.setVisible(true);
 	}
@@ -33,7 +35,7 @@ public class Graph {
 		return this.pan.getmoveable();
 	}
 
-	public void setmovealefalse() {
+	public void setmoveablefalse() {
 		this.pan.setmoveablefalse();
 	}
 

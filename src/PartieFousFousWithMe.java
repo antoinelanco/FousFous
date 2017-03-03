@@ -11,26 +11,26 @@ public class PartieFousFousWithMe {
 
 		String[] lesJoueurs = { jBlanc, jNoir };
 		Heuristiques h = new Heuristiques();
-		AlphaBeta algoNoir = new AlphaBeta(h, jNoir, jBlanc, 6);
+		AlphaBeta algoNoir = new AlphaBeta(h, jNoir, jBlanc, 4);
 
 		PlateauFousFous Plateau = new PlateauFousFous();
+		Graph GUI = new Graph(Plateau);
 		int jnum = 0;
-		Plateau.AfficheGUI();
 		String move = null;
 		while (!Plateau.finDePartie()) {
 
 			System.out.println("Joueur " + lesJoueurs[jnum]);
-			Plateau.RefreshGUI();
+			GUI.refresh();
 			Plateau.AffichePlateau();
 			System.out.println("Les mouvement possibles :");
 			Plateau.AfficheMovePossible(lesJoueurs[jnum]);
 
 			if (jnum == 0) {
-				while (!Plateau.moveable()) {
+				while (!GUI.getmoveable()) {
 					Thread.sleep(100);
 				}
-				move = Plateau.move();
-				Plateau.setmoveablefalse();
+				move = GUI.getmove();
+				GUI.setmoveablefalse();
 				if (Plateau.estValide(move, lesJoueurs[jnum])) {
 					Plateau.play(move, lesJoueurs[jnum]);
 					jnum = 1 - jnum;
@@ -45,7 +45,7 @@ public class PartieFousFousWithMe {
 				jnum = 1 - jnum;
 			}
 		}
-		Plateau.RefreshGUI();
+		GUI.refresh();
 		System.out.println("Le joueur " + lesJoueurs[1 - jnum] + " a gg");
 		JFrame fenetre = new JFrame();
 		fenetre.setTitle("Victoire!");
