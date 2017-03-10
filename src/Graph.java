@@ -76,7 +76,7 @@ class Panneau extends JPanel implements MouseListener {
 	}
 
 	public void paintComponent(Graphics g) {
-		
+
 		for (int i = 1; i < 9; i++) {
 			for (int j = 1; j < 9; j++) {
 
@@ -164,15 +164,15 @@ class Panneau extends JPanel implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.pion = "" + (char) ((e.getX() / 80) + 65) + ""
-				+ ((e.getY() / 80) + 1);
+		this.pion = "" + (char) (((e.getX()-30) / 80) + 65) + ""
+				+ (((e.getY()-30) / 80) + 1);
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		this.dest = "" + (char) ((e.getX() / 80) + 65) + ""
-				+ ((e.getY() / 80) + 1);
+		this.dest = "" + (char) (((e.getX()-30) / 80) + 65) + ""
+				+ (((e.getY()-30) / 80) + 1);
 		this.move = this.pion + "-" + this.dest;
 		System.out.println(this.move);
 		this.moveable = true;
