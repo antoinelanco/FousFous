@@ -37,6 +37,7 @@ public class Graph {
 		panel.add(label);
 		fenetre.setContentPane(panel);
 		fenetre.setVisible(true);
+		fenetre.setLocationRelativeTo(null);
 	}
 
 	public void refresh(String joueur) {
