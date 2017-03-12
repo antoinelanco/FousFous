@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class PlateauFousFous implements Partie1 {
 	public Cellule[][] Plateau;
-	
+
 	public PlateauFousFous() {
 
 		this.Plateau = new Cellule[8][8];
@@ -103,6 +103,7 @@ public class PlateauFousFous implements Partie1 {
 
 		if (player.split("")[0].equals("b") && ((cel[1].getColor().equals("n") && isNear(cel[0], cel[1]))
 				|| ((!NearbyFoe(cel[0], player) && NearbyFoe(cel[1], player))))) {
+			//System.out.println(isNear(cel[0],cel[1]));
 			return true;
 		} else if (player.split("")[0].equals("n") && ((cel[1].getColor().equals("b") && isNear(cel[0], cel[1]))
 				|| ((!NearbyFoe(cel[0], player) && NearbyFoe(cel[1], player))))) {
