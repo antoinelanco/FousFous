@@ -16,7 +16,7 @@ public class Graph {
 		this.Plateau = Plateau;
 		JFrame fenetre = new JFrame();
 		fenetre.setTitle("FousFous");
-		fenetre.setSize(1000, 730);
+		fenetre.setSize(1000, 692);
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setResizable(false);

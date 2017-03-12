@@ -20,7 +20,7 @@ public class PartieFousFousWithMe {
 		while (!Plateau.finDePartie()) {
 
 			System.out.println("Joueur " + lesJoueurs[jnum]);
-			GUI.refresh(lesJoueurs[1 - jnum]);
+			GUI.refresh(lesJoueurs[jnum]);
 			Plateau.AffichePlateau();
 			System.out.println("Les mouvement possibles :");
 			Plateau.AfficheMovePossible(lesJoueurs[jnum]);
