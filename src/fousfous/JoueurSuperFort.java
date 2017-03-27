@@ -11,6 +11,7 @@ public class JoueurSuperFort implements IJoueur{
 	@Override
 	public void initJoueur(int mycolour) {
 		this.mycolour = mycolour;
+		this.Ennemi = mycolour*-1;
 		this.Plateau = new PlateauFousFous();
 		this.Algo = new AlphaBeta(new Heuristiques(), (this.mycolour == -1 ? "BLANC" : "NOIR"), (this.mycolour == 1 ? "BLANC" : "NOIR"), 4);
 		
