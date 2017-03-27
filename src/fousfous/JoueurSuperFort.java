@@ -4,7 +4,7 @@ public class JoueurSuperFort implements IJoueur{
 
 	private PlateauFousFous Plateau;
 	private int Ennemi;
-	private String Name = "Lanco";
+	private String Name = "Lanco_Trinkl";
 	private int mycolour; 
 	private AlphaBeta Algo;
 	
