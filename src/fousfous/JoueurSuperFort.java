@@ -6,10 +6,13 @@ public class JoueurSuperFort implements IJoueur{
 	private int Ennemi;
 	private String Name = "Lanco";
 	private int mycolour; 
+	private AlphaBeta Algo;
 	
 	@Override
 	public void initJoueur(int mycolour) {
 		this.mycolour = mycolour;
+		this.Plateau = new PlateauFousFous();
+		this.Algo = new AlphaBeta(new Heuristiques(), (this.mycolour == -1 ? "BLANC" : "NOIR"), (this.mycolour == 1 ? "BLANC" : "NOIR"), 4);
 		
 	}
 
@@ -20,14 +23,16 @@ public class JoueurSuperFort implements IJoueur{
 
 	@Override
 	public String choixMouvement() {
-		// TODO Auto-generated method stub
-		return null;
+		String best = this.Algo.meilleurCoup(this.Plateau);
+		System.out.println(best+"icccccccccccccccccccccccccci");
+		this.Plateau.play(best, (this.mycolour == -1 ? "BLANC" : "NOIR"));
+		return best;
 	}
 
 	@Override
 	public void declareLeVainqueur(int colour) {
 		if(colour == this.mycolour){
-			System.out.println("Oui c'est Gagné !!!");
+			System.out.println("Oui c'est Gagne !!!");
 		}
 	}
 

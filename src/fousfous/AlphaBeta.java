@@ -50,8 +50,8 @@ public class AlphaBeta {
 		}
 
 		// System.out.println("Prof :"+this.profMax);
-		System.out.println("N°Noeuds :" + this.nbnoeuds);
-		System.out.println("N°Feuilles :" + this.nbfeuilles);
+		System.out.println("Nb Noeuds :" + this.nbnoeuds);
+		System.out.println("Nb Feuilles :" + this.nbfeuilles);
 		System.out.println("mc :" + MH);
 		return meilleurCoup;
 	}

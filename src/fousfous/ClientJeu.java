@@ -92,6 +92,7 @@ public class ClientJeu {
 	    }
 
 	    // permet d'initialiser votre joueur avec sa couleur
+	    System.out.println("Bonjour");
 	    joueur.initJoueur(maCouleur);
 
 	    // boucle g�n�rale de jeu
