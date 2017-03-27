@@ -2,16 +2,20 @@ package fousfous;
 
 public class JoueurSuperFort implements IJoueur{
 
+	private PlateauFousFous Plateau;
+	private int Ennemi;
+	private String Name = "Lanco";
+	private int mycolour; 
+	
 	@Override
 	public void initJoueur(int mycolour) {
-		// TODO Auto-generated method stub
+		this.mycolour = mycolour;
 		
 	}
 
 	@Override
 	public int getNumJoueur() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.mycolour;
 	}
 
 	@Override
@@ -22,20 +26,19 @@ public class JoueurSuperFort implements IJoueur{
 
 	@Override
 	public void declareLeVainqueur(int colour) {
-		// TODO Auto-generated method stub
-		
+		if(colour == this.mycolour){
+			System.out.println("Oui c'est Gagné !!!");
+		}
 	}
 
 	@Override
 	public void mouvementEnnemi(String coup) {
-		// TODO Auto-generated method stub
-		
+		this.Plateau.play(coup, Integer.toString(Ennemi));
 	}
 
 	@Override
 	public String binoName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.Name;
 	}
 
 }

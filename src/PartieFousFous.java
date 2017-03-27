@@ -1,5 +1,9 @@
 import java.io.IOException;
 
+import fousfous.AlphaBeta;
+import fousfous.Heuristiques;
+import fousfous.PlateauFousFous;
+
 public class PartieFousFous {
 	public static void main(String[] args) throws IOException {
 		String jBlanc = "blanc";

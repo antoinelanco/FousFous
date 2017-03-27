@@ -1,3 +1,4 @@
+package fousfous;
 public interface Partie1 {
 
 	/** initialise un plateau a partire d'un fichier texte

@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import fousfous.Cellule;
+import fousfous.PlateauFousFous;
+
 public class Graph {
 	private Panneau pan;
 	private PlateauFousFous Plateau;
@@ -16,7 +19,7 @@ public class Graph {
 		this.Plateau = Plateau;
 		JFrame fenetre = new JFrame();
 		fenetre.setTitle("FousFous");
-		fenetre.setSize(1000, 692);
+		fenetre.setSize(1000, 750);
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setResizable(false);

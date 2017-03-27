@@ -4,6 +4,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import fousfous.AlphaBeta;
+import fousfous.Heuristiques;
+import fousfous.PlateauFousFous;
+
 public class PartieFousFousWithMe {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		String jBlanc = "blanc";

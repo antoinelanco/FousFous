@@ -1,3 +1,5 @@
+package fousfous;
+import fousfous.PlateauFousFous;
 
 public class Heuristiques {
 

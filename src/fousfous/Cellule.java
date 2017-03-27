@@ -1,3 +1,4 @@
+package fousfous;
 public class Cellule {
 	private int i;
 	private int j;

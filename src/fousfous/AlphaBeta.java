@@ -1,3 +1,6 @@
+package fousfous;
+import fousfous.PlateauFousFous;
+
 public class AlphaBeta {
 
 	private final static int PROFMAXDEFAUT = 4;
