@@ -28,6 +28,7 @@ public class AlphaBeta {
 		this.nbnoeuds = 0;
 
 		String meilleurCoup = Plateau.mouvementPossibles(joueurMax)[0];
+		System.out.println(meilleurCoup);
 
 		int alpha = Integer.MIN_VALUE;
 		int beta = Integer.MAX_VALUE;
@@ -53,6 +54,7 @@ public class AlphaBeta {
 		System.out.println("Nb Noeuds :" + this.nbnoeuds);
 		System.out.println("Nb Feuilles :" + this.nbfeuilles);
 		System.out.println("mc :" + MH);
+		System.out.println(meilleurCoup);
 		return meilleurCoup;
 	}
 

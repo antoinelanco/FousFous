@@ -4,7 +4,7 @@ public class JoueurSuperFort implements IJoueur{
 
 	private PlateauFousFous Plateau;
 	private int Ennemi;
-	private String Name = "Lanco";
+	private String Name = "Lanco_Trinkl";
 	private int mycolour; 
 	private AlphaBeta Algo;
 	
@@ -24,7 +24,7 @@ public class JoueurSuperFort implements IJoueur{
 	@Override
 	public String choixMouvement() {
 		String best = this.Algo.meilleurCoup(this.Plateau);
-		System.out.println(best+"icccccccccccccccccccccccccci");
+		System.out.println(best);
 		this.Plateau.play(best, (this.mycolour == -1 ? "BLANC" : "NOIR"));
 		return best;
 	}
