@@ -27,6 +27,7 @@ public class PlateauFousFous implements Partie1 {
 			}
 		}
 	}
+	
 
 	public PlateauFousFous(Cellule[][] copy) {
 		this.Plateau = new Cellule[8][8];
@@ -104,11 +105,11 @@ public class PlateauFousFous implements Partie1 {
 
 		}
 
-		if (player.split("")[0].equals("b") && ((cel[1].getColor().equals("n") && isNear(cel[0], cel[1]))
+		if (player.substring(0,1).equals("b") && ((cel[1].getColor().equals("n") && isNear(cel[0], cel[1]))
 				|| ((!NearbyFoe(cel[0], player) && NearbyFoe(cel[1], player))))) {
 			//System.out.println(isNear(cel[0],cel[1]));
 			return true;
-		} else if (player.split("")[0].equals("n") && ((cel[1].getColor().equals("b") && isNear(cel[0], cel[1]))
+		} else if (player.substring(0,1).equals("n") && ((cel[1].getColor().equals("b") && isNear(cel[0], cel[1]))
 				|| ((!NearbyFoe(cel[0], player) && NearbyFoe(cel[1], player))))) {
 			return true;
 		}
@@ -121,7 +122,7 @@ public class PlateauFousFous implements Partie1 {
 		int iter = 0;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				if (this.Plateau[i][j].getColor().equals(player.split("")[0])) {
+				if (this.Plateau[i][j].getColor().equals(player.substring(0,1))) {
 					for (Cellule c : getDiagAll(this.Plateau[i][j])) {
 						if (c != null && estValide(CelluleToMove(this.Plateau[i][j], c), player)) {
 							res[iter] = CelluleToMove(this.Plateau[i][j], c);
@@ -139,7 +140,7 @@ public class PlateauFousFous implements Partie1 {
 
 		Cellule[] cel = moveToCellule(move);
 
-		if (player.split("")[0].equals(cel[0].getColor())) {
+		if (player.substring(0,1).equals(cel[0].getColor())) {
 			cel[1].setColor(cel[0].getColor());
 			cel[0].setColor("-");
 			// System.out.println("Play");
@@ -282,7 +283,7 @@ public class PlateauFousFous implements Partie1 {
 	}
 
 	private boolean NearbyFoe(Cellule cell, String player) {
-		if (player.split("")[0].equals("b")) {
+		if (player.substring(0,1).equals("b")) {
 			for (Cellule c : getDiagNear(cell)) {
 				if (c != null && c.getColor().equals("n")) {
 					return true;
@@ -290,7 +291,7 @@ public class PlateauFousFous implements Partie1 {
 			}
 		}
 
-		else if (player.split("")[0].equals("n")) {
+		else if (player.substring(0,1).equals("n")) {
 			for (Cellule c : getDiagNear(cell)) {
 				if (c != null && c.getColor().equals("b")) {
 					return true;
@@ -309,8 +310,8 @@ public class PlateauFousFous implements Partie1 {
 			String pion = data[0];
 			String dest = data[1];
 
-			res[0] = this.Plateau[Integer.parseInt(pion.split("")[1]) - 1][pion.toCharArray()[0] - 'A'];
-			res[1] = this.Plateau[Integer.parseInt(dest.split("")[1]) - 1][dest.toCharArray()[0] - 'A'];
+			res[0] = this.Plateau[Integer.parseInt(pion.substring(1,2)) - 1][pion.toCharArray()[0] - 'A'];
+			res[1] = this.Plateau[Integer.parseInt(dest.substring(1,2)) - 1][dest.toCharArray()[0] - 'A'];
 		} catch (ArrayIndexOutOfBoundsException e) {
 		}
 		return res;

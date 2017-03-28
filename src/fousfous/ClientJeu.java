@@ -33,6 +33,7 @@ public class ClientJeu {
      *            Dans l'ordre : NomClasseJoueur MachineServeur PortEcoute
      */
     public static void main(String[] args) {
+    	
 
 	if (args.length < 3) {
 	    System.err.println("ClientJeu Usage: NomClasseJoueur MachineServeur PortEcoute");
