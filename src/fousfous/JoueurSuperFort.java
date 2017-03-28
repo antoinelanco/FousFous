@@ -13,6 +13,7 @@ public class JoueurSuperFort implements IJoueur{
 	@Override
 	public void initJoueur(int mycolour) {
 		this.mycolour = mycolour;
+		this.Ennemi = mycolour*-1;
 		this.Plateau = new PlateauFousFous();
 		
 		this.colorA = (mycolour == -1 ? "blanc" : "noir");
