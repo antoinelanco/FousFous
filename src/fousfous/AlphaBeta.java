@@ -22,38 +22,38 @@ public class AlphaBeta {
 		this.profMax = profMaxi;
 	}
 
-	public String meilleurCoup(PlateauFousFous Plateau) {
+	public String meilleurCoup(PlateauFousFous plateau) {
 
 		this.nbfeuilles = 0;
 		this.nbnoeuds = 0;
 		
-		String meilleurCoup = Plateau.mouvementPossibles(joueurMax)[0];
-
+		String meilleurCoup = plateau.mouvementPossibles(joueurMax)[0];
+		System.out.println(plateau.mouvementPossibles(joueurMax).length);
 		int alpha = Integer.MIN_VALUE;
 		int beta = Integer.MAX_VALUE;
-		int MH = Integer.MIN_VALUE;
+		//int MH = Integer.MIN_VALUE;
 
-		for (String c : Plateau.mouvementPossibles(this.joueurMax)) {
+		for (String c : plateau.mouvementPossibles(this.joueurMax)) {
 			if (c != null) {
 				this.nbnoeuds++;
-				PlateauFousFous tmp = Plateau.copy();
+				PlateauFousFous tmp = plateau.copy();
 				tmp.play(c, this.joueurMax);
 				int Max = minMax(tmp, profMax - 1, alpha, beta);
 				// System.out.println("mh : "+Max);
 				if (alpha < Max) {
 					alpha = Max;
-					MH = alpha;
+					//MH = alpha;
 					meilleurCoup = c;
 
 				}
 			}
 		}
-
+		
 		// System.out.println("Prof :"+this.profMax);
-		System.out.println("Nb Noeuds :" + this.nbnoeuds);
-		System.out.println("Nb Feuilles :" + this.nbfeuilles);
-		System.out.println("mc :" + MH);
-		System.out.println(meilleurCoup);
+		//System.out.println("Nb Noeuds :" + this.nbnoeuds);
+		//System.out.println("Nb Feuilles :" + this.nbfeuilles);
+		//System.out.println("mc :" + MH);
+		System.out.println("le meilleur coup est: " + meilleurCoup);
 		return meilleurCoup;
 	}
 
@@ -84,13 +84,18 @@ public class AlphaBeta {
 	}
 
 	private int minMax(PlateauFousFous Plateau, int prof, int alpha, int beta) {
+		System.out.println("debut minmax");
 		if (Plateau.finDePartie() || prof == 0) {
+			System.out.println("entree dans if");
 			this.nbfeuilles++;
 			// System.out.println("eval h "+h.eval(p, this.joueurMin));
 			return h.eval(Plateau, this.joueurMin);
 		} else {
+			System.out.println("entree dans else");
 			for (String c : Plateau.mouvementPossibles(this.joueurMin)) {
+				System.out.println("debut for");
 				if (c != null) {
+					System.out.println("apres if");
 					this.nbnoeuds++;
 					PlateauFousFous tmp = Plateau.copy();
 					tmp.play(c, this.joueurMin);

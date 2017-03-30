@@ -11,7 +11,7 @@ package fousfous;
 
 public interface IJoueur {
 
-    // Mais pas lors de la conversation avec l'arbitre (m�thodes initJoueur et getNumJoueur)
+    // Mais pas lors de la conversation avec l'arbitre (méthodes initJoueur et getNumJoueur)
     // Vous pouvez changer cela en interne si vous le souhaitez
     static final int BLANC = -1;
     static final int NOIR = 1;
@@ -41,7 +41,7 @@ public interface IJoueur {
 
     /**
      * Méthode appelée par l'arbitre pour désigner le vainqueur. Vous pouvez en profiter pour
-     * imprimer une banni?re de joie... Si vous gagnez...
+     * imprimer une bannière de joie... Si vous gagnez...
      * 
      * @param colour
      *            La couleur du gagnant (BLANC=-1, NOIR=1).
