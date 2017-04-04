@@ -20,8 +20,7 @@ public class JoueurSuperFort implements IJoueur {
 		this.Plateau = new PlateauFousFous();
 		this.colorA = mycolour == -1 ? "blanc" : "noir";
 		this.colorE = mycolour == -1 ? "noir" : "blanc";
-		this.Algo = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE,
-				4);
+		this.Algo = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE,6);
 
 	}
 
@@ -32,15 +31,12 @@ public class JoueurSuperFort implements IJoueur {
 
 	@Override
 	public String choixMouvement() {
-		System.out
-				.println("Voici mon plateau de jeu avant de choisir mon coup :");
+		System.out.println("Voici mon plateau de jeu avant de choisir mon coup :");
 		this.Plateau.AffichePlateau();
 		System.out.println();
 		System.out.print(this.Plateau.mouvementPossibles(this.colorA).length+ " coups: ");
 		if (this.Plateau.mouvementPossibles(colorA).length > 0) {
-			// String best = this.Algo.meilleurCoup(this.Plateau);
-			String best = this.Plateau.mouvementPossibles(this.colorA)[(int) (Math.random()
-					* this.Plateau.mouvementPossibles(this.colorA).length + 0)];
+			String best = this.Algo.meilleurCoup(this.Plateau);
 			for (int i = 0; i < this.Plateau.mouvementPossibles(this.colorA).length; i++) {
 				System.out.print(this.Plateau.mouvementPossibles(this.colorA)[i]+ " | ");
 			}

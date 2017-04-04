@@ -8,7 +8,7 @@ public class Heuristiques {
 
 	public int eval(PlateauFousFous Plateau, String player) {
 
-		if (player.split("")[0].equals("b")) {
+		if (player.substring(0, 1).equals("b")) {
 			return Plateau.getPionBlanc() - (Plateau.getPionNoir()*2);
 		} else {
 			return Plateau.getPionNoir() - (Plateau.getPionBlanc()*2);

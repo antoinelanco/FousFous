@@ -27,6 +27,7 @@ public class AlphaBeta {
 		this.nbfeuilles = 0;
 		this.nbnoeuds = 0;
 		
+		System.out.println("LA PROFONDEUR EST DE: " + this.profMax);
 		String meilleurCoup = plateau.mouvementPossibles(joueurMax)[0];
 		System.out.println(plateau.mouvementPossibles(joueurMax).length);
 		int alpha = Integer.MIN_VALUE;
@@ -38,7 +39,7 @@ public class AlphaBeta {
 				this.nbnoeuds++;
 				PlateauFousFous tmp = plateau.copy();
 				tmp.play(c, this.joueurMax);
-				int Max = minMax(tmp, profMax - 1, alpha, beta);
+				int Max = minMax(tmp, this.profMax - 1, alpha, beta);
 				// System.out.println("mh : "+Max);
 				if (alpha < Max) {
 					alpha = Max;
@@ -84,18 +85,13 @@ public class AlphaBeta {
 	}
 
 	private int minMax(PlateauFousFous Plateau, int prof, int alpha, int beta) {
-		System.out.println("debut minmax");
 		if (Plateau.finDePartie() || prof == 0) {
-			System.out.println("entree dans if");
 			this.nbfeuilles++;
 			// System.out.println("eval h "+h.eval(p, this.joueurMin));
 			return h.eval(Plateau, this.joueurMin);
 		} else {
-			System.out.println("entree dans else");
 			for (String c : Plateau.mouvementPossibles(this.joueurMin)) {
-				System.out.println("debut for");
 				if (c != null) {
-					System.out.println("apres if");
 					this.nbnoeuds++;
 					PlateauFousFous tmp = Plateau.copy();
 					tmp.play(c, this.joueurMin);
