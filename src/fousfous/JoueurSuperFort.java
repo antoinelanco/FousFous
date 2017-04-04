@@ -36,8 +36,7 @@ public class JoueurSuperFort implements IJoueur {
 				.println("Voici mon plateau de jeu avant de choisir mon coup :");
 		this.Plateau.AffichePlateau();
 		System.out.println();
-		System.out.print(this.Plateau.mouvementPossibles(this.colorA).length
-				+ " coups: ");
+		System.out.print(this.Plateau.mouvementPossibles(this.colorA).length+ " coups: ");
 		if (this.Plateau.mouvementPossibles(colorA).length > 0) {
 			// String best = this.Algo.meilleurCoup(this.Plateau);
 			String best = this.Plateau.mouvementPossibles(this.colorA)[(int) (Math.random()
