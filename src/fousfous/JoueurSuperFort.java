@@ -10,6 +10,7 @@ public class JoueurSuperFort implements IJoueur {
 	private String colorA;
 	private String colorE;
 	private AlphaBeta Algo;
+	private int profondeur = 6;
 	
 	/** Scanner in = new Scanner (System.in); **/
 	@Override
@@ -18,7 +19,7 @@ public class JoueurSuperFort implements IJoueur {
 		this.Plateau = new PlateauFousFous();
 		this.colorA = mycolour == -1 ? "blanc" : "noir";
 		this.colorE = mycolour == -1 ? "noir" : "blanc";
-		this.Algo = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE,2);
+		this.Algo = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
 
 	}
 
@@ -32,8 +33,21 @@ public class JoueurSuperFort implements IJoueur {
 		System.out.println("Voici mon plateau de jeu avant de choisir mon coup :");
 		this.Plateau.AffichePlateau();
 		System.out.println();
-		System.out.print(this.Plateau.mouvementPossibles(this.colorA).length+ " coups: ");
 		if (this.Plateau.mouvementPossibles(colorA).length > 0) {
+			if (this.Plateau.mouvementPossibles(colorA).length < 10){
+				this.profondeur = 15;
+			} else {
+				if (this.Plateau.mouvementPossibles(colorA).length < 20){
+					this.profondeur = 10;
+				} else {
+					if (this.Plateau.mouvementPossibles(colorA).length < 30){
+						this.profondeur = 8;
+					}
+				}
+			}
+			System.out.println("profondeur: " + this.profondeur);
+			System.out.print(this.Plateau.mouvementPossibles(this.colorA).length+ " coups: ");	
+			this.Algo = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
 			String best = this.Algo.meilleurCoup(this.Plateau);
 			for (int i = 0; i < this.Plateau.mouvementPossibles(this.colorA).length; i++) {
 				System.out.print(this.Plateau.mouvementPossibles(this.colorA)[i]+ " | ");
