@@ -11,7 +11,7 @@ public class JoueurSuperFort implements IJoueur {
 	private String colorA;
 	private String colorE;
 	private AlphaBeta Algo;
-
+	
 	/** Scanner in = new Scanner (System.in); **/
 	@Override
 	public void initJoueur(int mycolour) {

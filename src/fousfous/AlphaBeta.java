@@ -34,11 +34,14 @@ public class AlphaBeta {
 
 		for (String coup : plateau.mouvementPossibles(this.joueurMax)) {
 			if (coup != null) {
+				/*System.out.print("coup: " + coup + " | ");
+				System.out.print("alpha: " + alpha);
+				System.out.println(" | beta: " + beta);*/
 				this.nbnoeuds++;
 				PlateauFousFous tmp = plateau.copy();
 				tmp.play(coup, this.joueurMax);
-				int Max = minMax(tmp, this.profMax - 1, alpha, beta);
-				System.out.println("mh : "+Max);
+				int Max = maxMin(tmp, this.profMax - 1, alpha, beta);
+				//System.out.println("max : "+Max);
 				if (alpha < Max) {
 					alpha = Max;
 					MH = alpha;
@@ -51,7 +54,7 @@ public class AlphaBeta {
 		// System.out.println("Prof :"+this.profMax);
 		//System.out.println("Nb Noeuds :" + this.nbnoeuds);
 		//System.out.println("Nb Feuilles :" + this.nbfeuilles);
-		System.out.println("meilleur coup potentiel :" + MH);
+		//System.out.println("mc :" + MH);
 		System.out.println("le meilleur coup est: " + meilleurCoup);
 
 		return meilleurCoup;
@@ -73,9 +76,6 @@ public class AlphaBeta {
 					PlateauFousFous tmp = plateau.copy();
 					tmp.play(c, this.joueurMax);
 					alpha = Math.max(alpha, minMax(tmp, prof - 1, alpha, beta));
-					System.out.print("coup: " + c + " | ");
-					System.out.print("alpha: " + alpha);
-					System.out.println(" | beta: " + beta);
 					if (alpha >= beta) {
 						return beta;
 					}
