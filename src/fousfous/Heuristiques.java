@@ -12,12 +12,12 @@ public class Heuristiques {
 			if(plateau.getPionNoir()==0){
 				return 10000;
 			}
-			return plateau.getPionBlanc();
+			return plateau.getPionNoir() - plateau.getPionBlanc()*3;
 		} else {
 			if(plateau.getPionBlanc()==0){
 				return 10000;
 			}
-			return plateau.getPionNoir();
+			return plateau.getPionBlanc() - plateau.getPionNoir()*3;
 		}
 	}
 

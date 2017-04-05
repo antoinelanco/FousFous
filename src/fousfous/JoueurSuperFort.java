@@ -5,7 +5,6 @@ package fousfous;
 public class JoueurSuperFort implements IJoueur {
 
 	private PlateauFousFous Plateau;
-	private int Ennemi;
 	private String Name = "Lanco_Trinkl";
 	private int mycolour;
 	private String colorA;
@@ -16,11 +15,10 @@ public class JoueurSuperFort implements IJoueur {
 	@Override
 	public void initJoueur(int mycolour) {
 		this.mycolour = mycolour;
-		this.Ennemi = mycolour * -1;
 		this.Plateau = new PlateauFousFous();
 		this.colorA = mycolour == -1 ? "blanc" : "noir";
 		this.colorE = mycolour == -1 ? "noir" : "blanc";
-		this.Algo = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE,6);
+		this.Algo = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE,2);
 
 	}
 

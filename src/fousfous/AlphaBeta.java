@@ -56,7 +56,6 @@ public class AlphaBeta {
 		//System.out.println("Nb Feuilles :" + this.nbfeuilles);
 		//System.out.println("mc :" + MH);
 		System.out.println("le meilleur coup est: " + meilleurCoup);
-
 		return meilleurCoup;
 	}
 
