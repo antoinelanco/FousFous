@@ -9,7 +9,7 @@ public class JoueurSuperFort implements IJoueur {
 	private int mycolour;
 	private String colorA;
 	private String colorE;
-	private NegEchecAlphaBeta Algo;
+	private NegEchecAlphaBetaMem Algo;
 	private int profondeur = 6;
 	
 	/** Scanner in = new Scanner (System.in); **/
@@ -19,7 +19,7 @@ public class JoueurSuperFort implements IJoueur {
 		this.Plateau = new PlateauFousFous();
 		this.colorA = mycolour == -1 ? "blanc" : "noir";
 		this.colorE = mycolour == -1 ? "noir" : "blanc";
-		this.Algo = new NegEchecAlphaBeta(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
+		this.Algo = new NegEchecAlphaBetaMem(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
 
 	}
 
@@ -48,10 +48,10 @@ public class JoueurSuperFort implements IJoueur {
 			}
 			System.out.println("profondeur: " + this.profondeur);
 			System.out.println(movepossible+ " coups: ");	
-			this.Algo = new NegEchecAlphaBeta(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
+			this.Algo = new NegEchecAlphaBetaMem(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
 			String best = this.Algo.meilleurCoup(this.Plateau);
-			for (int i = 0; i < this.Plateau.mouvementPossibles(this.colorA).length; i++) {
-				System.out.print(this.Plateau.mouvementPossibles(this.colorA)[i]+ " | ");
+			for (int i = 0; i < movepossible; i++) {
+				System.out.print(this.Plateau.mouvementPossibles(this.colorA )[i]+ " | ");
 			}
 			System.out.println();
 			System.out.println("mon coup est : " + best);
