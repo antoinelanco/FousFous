@@ -210,6 +210,37 @@ public class PlateauFousFous implements Partie1 {
 		}
 		return res;
 	}
+	
+	public boolean diagAmi(Cellule Cell, String player){
+		
+		for (Cellule c : this.diag(Cell)) {
+			if (c != null) {
+				if (player.substring(0, 1).equals("b") && c.getColor().equals("n")) {
+					return true;
+				}
+				if (player.substring(0, 1).equals("n") && c.getColor().equals("b")) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public int ScoreDiag(String player){
+		float res = 0;
+		float nbPion = 0;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (this.Plateau[i][j].getColor().equals(player.substring(0, 1))) {
+					if(diagAmi(this.Plateau[i][j],player)){
+						res++;
+					}
+					nbPion++;
+				}
+			}
+		}
+		return (int)(10*(res/nbPion));
+	}
 
 	public boolean menace(Cellule cell, String player) {
 
@@ -379,6 +410,7 @@ public class PlateauFousFous implements Partie1 {
 		copy.play("B1-C2", "blanc");
 
 		PF.AffichePlateau();
+		System.out.println(PF.ScoreDiag("blanc"));
 
 	}
 }

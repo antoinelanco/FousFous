@@ -10,14 +10,14 @@ public class Heuristiques {
 
 		if (player.substring(0, 1).equals("b")) {
 			if(plateau.getPionNoir()==0){
-				return 10000;
+				return (10000 + plateau.getPionBlanc());
 			}
-			return plateau.getPionNoir() - plateau.getPionBlanc()*3;
+			return (int) (plateau.getPionBlanc() * plateau.ScoreDiag(player)) - (plateau.getPionNoir()*10) ;
 		} else {
 			if(plateau.getPionBlanc()==0){
-				return 10000;
+				return (10000 + plateau.getPionNoir());
 			}
-			return plateau.getPionBlanc() - plateau.getPionNoir()*3;
+			return (int) (plateau.getPionNoir() * plateau.ScoreDiag(player)) - (plateau.getPionBlanc()*10);
 		}
 	}
 

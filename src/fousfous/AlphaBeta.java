@@ -42,6 +42,7 @@ public class AlphaBeta {
 				tmp.play(coup, this.joueurMax);
 				int Max = maxMin(tmp, this.profMax - 1, alpha, beta);
 				//System.out.println("max : "+Max);
+				System.out.println("coup: "+coup+", heuristique : "+Max);
 				if (alpha < Max) {
 					alpha = Max;
 					MH = alpha;
@@ -54,7 +55,7 @@ public class AlphaBeta {
 		// System.out.println("Prof :"+this.profMax);
 		//System.out.println("Nb Noeuds :" + this.nbnoeuds);
 		//System.out.println("Nb Feuilles :" + this.nbfeuilles);
-		//System.out.println("mc :" + MH);
+		System.out.println("mc :" + MH);
 		System.out.println("le meilleur coup est: " + meilleurCoup);
 		return meilleurCoup;
 	}
@@ -67,6 +68,10 @@ public class AlphaBeta {
 		if (plateau.finDePartie() || prof == 0) {
 			this.nbfeuilles++;
 			//System.out.println("eval h "+h.eval(Plateau, this.joueurMax));
+			if(plateau.finDePartie()){
+				System.out.println("ffffffffffffffiiiiiiiiiiiiinnnnnnnnnnnnnn ddddeeee partie");
+				System.out.println("Joueur Max");
+			}
 			return h.eval(plateau, this.joueurMax);
 		} else {
 			for (String c : plateau.mouvementPossibles(this.joueurMax)) {
@@ -89,6 +94,10 @@ public class AlphaBeta {
 		if (plateau.finDePartie() || prof == 0) {
 			this.nbfeuilles++;
 			//System.out.println("eval h "+h.eval(Plateau, this.joueurMin));
+			if(plateau.finDePartie()){
+				System.out.println("ffffffffffffffiiiiiiiiiiiiinnnnnnnnnnnnnn ddddeeee partie");
+				System.out.println("Joueur Min");
+			}
 			return this.h.eval(plateau, this.joueurMin);
 		} else {
 			for (String c : plateau.mouvementPossibles(this.joueurMin)) {

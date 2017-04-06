@@ -9,7 +9,7 @@ public class JoueurSuperFort implements IJoueur {
 	private int mycolour;
 	private String colorA;
 	private String colorE;
-	private AlphaBeta Algo;
+	private NegEchecAlphaBeta Algo;
 	private int profondeur = 6;
 	
 	/** Scanner in = new Scanner (System.in); **/
@@ -19,7 +19,7 @@ public class JoueurSuperFort implements IJoueur {
 		this.Plateau = new PlateauFousFous();
 		this.colorA = mycolour == -1 ? "blanc" : "noir";
 		this.colorE = mycolour == -1 ? "noir" : "blanc";
-		this.Algo = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
+		this.Algo = new NegEchecAlphaBeta(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
 
 	}
 
@@ -33,21 +33,22 @@ public class JoueurSuperFort implements IJoueur {
 		System.out.println("Voici mon plateau de jeu avant de choisir mon coup :");
 		this.Plateau.AffichePlateau();
 		System.out.println();
-		if (this.Plateau.mouvementPossibles(colorA).length > 0) {
-			if (this.Plateau.mouvementPossibles(colorA).length < 10){
-				this.profondeur = 15;
+		int movepossible = Plateau.mouvementPossibles(this.colorA).length;
+		if (movepossible > 0) {
+			if (movepossible < 10){
+				this.profondeur = 10;
 			} else {
-				if (this.Plateau.mouvementPossibles(colorA).length < 20){
-					this.profondeur = 10;
+				if (movepossible < 20){
+					this.profondeur = 8;
 				} else {
-					if (this.Plateau.mouvementPossibles(colorA).length < 30){
-						this.profondeur = 8;
+					if (movepossible < 30){
+						this.profondeur = 6;
 					}
 				}
 			}
 			System.out.println("profondeur: " + this.profondeur);
-			System.out.print(this.Plateau.mouvementPossibles(this.colorA).length+ " coups: ");	
-			this.Algo = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
+			System.out.println(movepossible+ " coups: ");	
+			this.Algo = new NegEchecAlphaBeta(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
 			String best = this.Algo.meilleurCoup(this.Plateau);
 			for (int i = 0; i < this.Plateau.mouvementPossibles(this.colorA).length; i++) {
 				System.out.print(this.Plateau.mouvementPossibles(this.colorA)[i]+ " | ");
