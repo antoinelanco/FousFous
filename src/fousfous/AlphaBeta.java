@@ -32,21 +32,17 @@ public class AlphaBeta {
 				PlateauFousFous tmp = plateau.copy();
 				tmp.play(coup, this.joueurMax);
 				int Max = maxMin(tmp, this.profMax - 1, alpha, beta);
-				System.out.println("coup: "+coup+", heuristique : "+Max);
+				System.out.print("*");
+				//System.out.println("coup: "+coup+", heuristique : "+Max);
 				if (alpha < Max) {
 					alpha = Max;
 					meilleurCoup = coup;
-
 				}
 			}
 		}
-		
+		System.out.println();
 		System.out.println("le meilleur coup est: " + meilleurCoup);
 		return meilleurCoup;
-	}
-
-	public String toString() {
-		return "AlphaBeta (ProfMax=" + profMax + ")";
 	}
 
 	private int maxMin(PlateauFousFous plateau, int prof, int alpha, int beta) {
@@ -69,8 +65,6 @@ public class AlphaBeta {
 	
 	private int minMax(PlateauFousFous plateau, int prof, int alpha, int beta) {
 		if (plateau.finDePartie() || prof == 0) {
-			System.out.println("heuristique max: " +this.h.eval(plateau, this.joueurMax));
-			System.out.println("heuristique min: " +this.h.eval(plateau, this.joueurMin));
 			return this.h.eval(plateau, this.joueurMin);
 		} else {
 			for (String c : plateau.mouvementPossibles(this.joueurMin)) {
@@ -87,4 +81,8 @@ public class AlphaBeta {
 		}
 	}
 	
+	public String toString() {
+		return "AlphaBeta (ProfMax=" + profMax + ")";
+	}
+
 }

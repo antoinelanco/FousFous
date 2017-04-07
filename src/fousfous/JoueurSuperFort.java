@@ -1,7 +1,5 @@
 package fousfous;
 
-/** import java.util.Scanner; **/
-
 public class JoueurSuperFort implements IJoueur {
 
 	private PlateauFousFous Plateau;
@@ -9,18 +7,18 @@ public class JoueurSuperFort implements IJoueur {
 	private int mycolour;
 	private String colorA;
 	private String colorE;
-	private MiniMax Algo;
-	private int profondeur = 3;
+	private MiniMax algo;
+	private AlphaBeta algo2;
+	private int profondeur;
 	
-	/** Scanner in = new Scanner (System.in); **/
 	@Override
 	public void initJoueur(int mycolour) {
 		this.mycolour = mycolour;
 		this.Plateau = new PlateauFousFous();
 		this.colorA = mycolour == -1 ? "blanc" : "noir";
 		this.colorE = mycolour == -1 ? "noir" : "blanc";
-		this.Algo = new MiniMax(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
-
+		this.algo = new MiniMax(new Heuristiques(), this.colorA, this.colorE, this.profondeur);
+		this.algo2 = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE, this.profondeur);
 	}
 
 	@Override
@@ -30,47 +28,38 @@ public class JoueurSuperFort implements IJoueur {
 
 	@Override
 	public String choixMouvement() {
+		String best;
 		System.out.println("Voici mon plateau de jeu avant de choisir mon coup :");
 		this.Plateau.AffichePlateau();
 		System.out.println();
-		int movepossible = Plateau.mouvementPossibles(this.colorA).length;
-		if (movepossible > 0) {
-			if (movepossible < 6){
-				this.profondeur = 15;
-			}else{
-				if (movepossible < 10){
-					this.profondeur = 8;
-				} else {
-					if (movepossible < 20){
-						this.profondeur = 6;
-					}
-				}
+		int movePossible = Plateau.mouvementPossibles(this.colorA).length;
+		if (movePossible > 20){
+			this.profondeur = 6;
+			System.out.println("mon algo est alphaBeta et la profondeur est de " + this.profondeur);
+			this.algo2 = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
+			best = this.algo2.meilleurCoup(this.Plateau);
+		} else {
+			if ( movePossible > 10){
+				this.profondeur = 5;
+			} else {
+				this.profondeur = 6;
 			}
-			System.out.println("profondeur: " + this.profondeur);
-			System.out.println(movepossible+ " coups: ");	
-			this.Algo = new MiniMax(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
-			String best = this.Algo.meilleurCoup(this.Plateau);
-			for (int i = 0; i < movepossible; i++) {
-				System.out.print(this.Plateau.mouvementPossibles(this.colorA )[i]+ " | ");
-			}
-			System.out.println();
-			System.out.println("mon coup est : " + best);
-			this.Plateau.play(best, this.colorA);
-			System.out.println("Voici mon plateau de jeu apres mon coup :");
-			this.Plateau.AffichePlateau();
-			System.out.print("Coup adversair : ");
-			for(String couppp : this.Plateau.mouvementPossibles(this.colorE)){
-				System.out.print(couppp+" | ");
-			}
-			System.out.println("");
-			return best;
+			System.out.println("mon algo est minimax et la profondeur est de " + this.profondeur);
+			this.algo = new MiniMax(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
+			best = this.algo.meilleurCoup(this.Plateau);
 		}
-		return "xxxxx";
-		/**
-		 * String str = in.nextLine(); return str;
-		 */
+		System.out.print(movePossible+ " coups: ");	
+		for (int i = 0; i < movePossible; i++) {
+			System.out.print(this.Plateau.mouvementPossibles(this.colorA )[i]+ " | ");
+		}
+		System.out.println();
+		System.out.println("mon coup est : " + best);
+		this.Plateau.play(best, this.colorA);
+		System.out.println("Voici mon plateau de jeu apres mon coup :");
+		this.Plateau.AffichePlateau();
+		return best;
 	}
-
+	
 	@Override
 	public void declareLeVainqueur(int colour) {
 		if (colour == this.mycolour) {

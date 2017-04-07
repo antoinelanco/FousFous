@@ -22,20 +22,27 @@ public class MiniMax {
 	
 	public String meilleurCoup(PlateauFousFous plateau) {
 		int Max = Integer.MIN_VALUE;
-		int NewVal;
+		int newVal;
 		String best=plateau.mouvementPossibles(this.joueurMax)[0];
 		for(String move : plateau.mouvementPossibles(this.joueurMax)){
 			if (move != null) {
 				PlateauFousFous tmp = plateau.copy();
 				tmp.play(move, this.joueurMax);
-				NewVal = minMax(tmp,this.profMax-1);
-				System.out.println("Coup :"+move+", Heuristique :"+NewVal);
-				if(NewVal>Max){
-					Max=NewVal;
+				newVal = minMax(tmp,this.profMax-1);
+				System.out.print("*");
+				//System.out.println("Coup :"+move+", Heuristique :"+newVal);
+				if (newVal > 10000){
+					System.out.println();
+					return move;
+				}
+				if (newVal>Max){
+					Max=newVal;
 					best=move;
 				}
 			}
 		}
+		System.out.println();
+		System.out.println("le meilleur coup est: " + best);
 		return best;
 		
 	}
