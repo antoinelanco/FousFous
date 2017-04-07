@@ -54,9 +54,10 @@ public class NegEchecAlphaBetaMem {
 	public int NEABM(PlateauFousFous plateau, int prof, int alpha, int beta, int p){
 		int Max = Integer.MIN_VALUE;
 		int alphaInit = alpha;
+		
 		EntreeT Entree = (EntreeT) this.hash.get(plateau.hashCode());
 		if(Entree != null && Entree.PROF >= prof){
-			System.out.println("Trouver!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			//System.out.println("Trouver!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			if(Entree.FLAG.equals("EXACTVAL")){
 				return Entree.VAL;
 			}else if(Entree.FLAG.equals("BINF")){
@@ -69,9 +70,6 @@ public class NegEchecAlphaBetaMem {
 			}
 		}
 		if(plateau.finDePartie() || prof == 0){
-			if(plateau.finDePartie()){
-			}
-			
 			if(p<0){
 				return p*this.h.eval(plateau, this.joueurMax);
 			}else{
@@ -80,18 +78,19 @@ public class NegEchecAlphaBetaMem {
 		}else{
 			Max=Integer.MIN_VALUE;
 			if(p>0){
+				
 				for(String coup : plateau.mouvementPossibles(this.joueurMax)){
 					if(coup!=null){
 						PlateauFousFous tmp = plateau.copy();
 						tmp.play(coup, this.joueurMax);
 						Max = Math.max(Max, -NEABM(tmp,prof-1,-beta,-alpha,-p));
-						alpha = Math.max(alpha, Max);
 						if(alpha >= beta){
 							break;
 						}
 					}
 				}
 			}else{
+				
 				for(String coup : plateau.mouvementPossibles(this.joueurMin)){
 					if(coup!=null){
 						PlateauFousFous tmp = plateau.copy();

@@ -35,14 +35,18 @@ public class JoueurSuperFort implements IJoueur {
 		System.out.println();
 		int movepossible = Plateau.mouvementPossibles(this.colorA).length;
 		if (movepossible > 0) {
-			if (movepossible < 10){
-				this.profondeur = 10;
-			} else {
-				if (movepossible < 20){
-					this.profondeur = 8;
+			if (movepossible < 7){
+				this.profondeur = 15;
+			}else{
+				if (movepossible < 10){
+					this.profondeur = 11;
 				} else {
-					if (movepossible < 30){
-						this.profondeur = 6;
+					if (movepossible < 20){
+						this.profondeur = 8;
+					} else {
+						if (movepossible < 30){
+							this.profondeur = 6;
+						}
 					}
 				}
 			}
@@ -58,6 +62,11 @@ public class JoueurSuperFort implements IJoueur {
 			this.Plateau.play(best, this.colorA);
 			System.out.println("Voici mon plateau de jeu apres mon coup :");
 			this.Plateau.AffichePlateau();
+			System.out.print("Coup adversair : ");
+			for(String couppp : this.Plateau.mouvementPossibles(this.colorE)){
+				System.out.print(couppp+" | ");
+			}
+			System.out.println("");
 			return best;
 		}
 		return "xxxxx";
