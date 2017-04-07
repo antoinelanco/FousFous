@@ -215,10 +215,10 @@ public class PlateauFousFous implements Partie1 {
 		
 		for (Cellule c : this.diag(Cell)) {
 			if (c != null) {
-				if (player.substring(0, 1).equals("b") && c.getColor().equals("n")) {
+				if (player.substring(0, 1).equals(c.getColor())) {
 					return true;
 				}
-				if (player.substring(0, 1).equals("n") && c.getColor().equals("b")) {
+				if (player.substring(0, 1).equals(c.getColor())) {
 					return true;
 				}
 			}

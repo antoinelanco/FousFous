@@ -28,12 +28,13 @@ public class NegEchecAlphaBetaMem {
 		String meilleurCoup = plateau.mouvementPossibles(joueurMax)[0];
 		int alpha = Integer.MIN_VALUE;
 		int beta = Integer.MAX_VALUE;
+		int Max=Integer.MIN_VALUE;
 
 		for (String coup : plateau.mouvementPossibles(this.joueurMax)) {
 			if (coup != null) {
 				PlateauFousFous tmp = plateau.copy();
 				tmp.play(coup, this.joueurMax);
-				int Max = NEABM(tmp, this.profMax - 1, -beta, -alpha,-1);
+				Max = Math.max(Max, -NEABM(tmp, this.profMax - 1, -beta, -alpha,-1));
 				System.out.println("Coup :"+coup+", Heuristique :"+Max);
 				if (alpha < Max) {
 					alpha = Max;
@@ -70,11 +71,7 @@ public class NegEchecAlphaBetaMem {
 			}
 		}
 		if(plateau.finDePartie() || prof == 0){
-			if(p<0){
-				return p*this.h.eval(plateau, this.joueurMax);
-			}else{
-				return -p*this.h.eval(plateau, this.joueurMin);
-			}
+			return p*this.h.eval(plateau, this.joueurMax);
 		}else{
 			Max=Integer.MIN_VALUE;
 			if(p>0){

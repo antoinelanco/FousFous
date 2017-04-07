@@ -9,8 +9,8 @@ public class JoueurSuperFort implements IJoueur {
 	private int mycolour;
 	private String colorA;
 	private String colorE;
-	private NegEchecAlphaBetaMem Algo;
-	private int profondeur = 4;
+	private MiniMax Algo;
+	private int profondeur = 3;
 	
 	/** Scanner in = new Scanner (System.in); **/
 	@Override
@@ -19,7 +19,7 @@ public class JoueurSuperFort implements IJoueur {
 		this.Plateau = new PlateauFousFous();
 		this.colorA = mycolour == -1 ? "blanc" : "noir";
 		this.colorE = mycolour == -1 ? "noir" : "blanc";
-		this.Algo = new NegEchecAlphaBetaMem(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
+		this.Algo = new MiniMax(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
 
 	}
 
@@ -35,8 +35,8 @@ public class JoueurSuperFort implements IJoueur {
 		System.out.println();
 		int movepossible = Plateau.mouvementPossibles(this.colorA).length;
 		if (movepossible > 0) {
-			if (movepossible < 7){
-				this.profondeur = 10;
+			if (movepossible < 6){
+				this.profondeur = 15;
 			}else{
 				if (movepossible < 10){
 					this.profondeur = 8;
@@ -48,7 +48,7 @@ public class JoueurSuperFort implements IJoueur {
 			}
 			System.out.println("profondeur: " + this.profondeur);
 			System.out.println(movepossible+ " coups: ");	
-			this.Algo = new NegEchecAlphaBetaMem(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
+			this.Algo = new MiniMax(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
 			String best = this.Algo.meilleurCoup(this.Plateau);
 			for (int i = 0; i < movepossible; i++) {
 				System.out.print(this.Plateau.mouvementPossibles(this.colorA )[i]+ " | ");

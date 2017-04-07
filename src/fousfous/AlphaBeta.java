@@ -51,9 +51,6 @@ public class AlphaBeta {
 
 	private int maxMin(PlateauFousFous plateau, int prof, int alpha, int beta) {
 		if (plateau.finDePartie() || prof == 0) {
-			if(plateau.finDePartie()){
-				System.out.println("fin de partie");
-			}
 			return h.eval(plateau, this.joueurMax);
 		} else {
 			for (String c : plateau.mouvementPossibles(this.joueurMax)) {
@@ -72,9 +69,8 @@ public class AlphaBeta {
 	
 	private int minMax(PlateauFousFous plateau, int prof, int alpha, int beta) {
 		if (plateau.finDePartie() || prof == 0) {
-			if(plateau.finDePartie()){
-				System.out.println("fin de partie");
-			}
+			System.out.println("heuristique max: " +this.h.eval(plateau, this.joueurMax));
+			System.out.println("heuristique min: " +this.h.eval(plateau, this.joueurMin));
 			return this.h.eval(plateau, this.joueurMin);
 		} else {
 			for (String c : plateau.mouvementPossibles(this.joueurMin)) {
