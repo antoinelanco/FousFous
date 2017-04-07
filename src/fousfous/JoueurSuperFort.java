@@ -10,7 +10,7 @@ public class JoueurSuperFort implements IJoueur {
 	private String colorA;
 	private String colorE;
 	private NegEchecAlphaBetaMem Algo;
-	private int profondeur = 6;
+	private int profondeur = 4;
 	
 	/** Scanner in = new Scanner (System.in); **/
 	@Override
@@ -36,17 +36,13 @@ public class JoueurSuperFort implements IJoueur {
 		int movepossible = Plateau.mouvementPossibles(this.colorA).length;
 		if (movepossible > 0) {
 			if (movepossible < 7){
-				this.profondeur = 15;
+				this.profondeur = 10;
 			}else{
 				if (movepossible < 10){
-					this.profondeur = 11;
+					this.profondeur = 8;
 				} else {
 					if (movepossible < 20){
-						this.profondeur = 8;
-					} else {
-						if (movepossible < 30){
-							this.profondeur = 6;
-						}
+						this.profondeur = 6;
 					}
 				}
 			}

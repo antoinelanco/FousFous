@@ -33,7 +33,7 @@ public class NegEchecAlphaBetaMem {
 			if (coup != null) {
 				PlateauFousFous tmp = plateau.copy();
 				tmp.play(coup, this.joueurMax);
-				int Max = -NEABM(tmp, this.profMax - 1, -beta, -alpha,-1);
+				int Max = NEABM(tmp, this.profMax - 1, -beta, -alpha,-1);
 				System.out.println("Coup :"+coup+", Heuristique :"+Max);
 				if (alpha < Max) {
 					alpha = Max;
