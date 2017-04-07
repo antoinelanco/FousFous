@@ -1,10 +1,7 @@
 import java.io.IOException;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-import fousfous.AlphaBeta;
+import Algo.MiniMax;
 import fousfous.Heuristiques;
 import fousfous.PlateauFousFous;
 
@@ -15,7 +12,7 @@ public class PartieFousFousWithMe {
 		
 		String[] lesJoueurs = { jBlanc, jNoir };
 		Heuristiques h = new Heuristiques();
-		AlphaBeta algoNoir = new AlphaBeta(h, jNoir, jBlanc, 4);
+		MiniMax algoNoir = new MiniMax(h, jNoir, jBlanc, 3);
 
 		PlateauFousFous Plateau = new PlateauFousFous();
 		Graph GUI = new Graph(Plateau);

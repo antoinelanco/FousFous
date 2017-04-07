@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-import fousfous.AlphaBeta;
+import Algo.AlphaBeta;
 import fousfous.Heuristiques;
 import fousfous.PlateauFousFous;
 

@@ -1,5 +1,9 @@
-package fousfous;
+package Algo;
 import java.util.HashMap;
+
+import fousfous.EntreeT;
+import fousfous.Heuristiques;
+import fousfous.PlateauFousFous;
 
 public class NegEchecAlphaBetaMem {
 

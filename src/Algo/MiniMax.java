@@ -1,4 +1,7 @@
-package fousfous;
+package Algo;
+
+import fousfous.Heuristiques;
+import fousfous.PlateauFousFous;
 
 public class MiniMax {
 

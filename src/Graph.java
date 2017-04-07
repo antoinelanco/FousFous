@@ -19,7 +19,7 @@ public class Graph {
 		this.Plateau = Plateau;
 		JFrame fenetre = new JFrame();
 		fenetre.setTitle("FousFous");
-		fenetre.setSize(1000, 750);
+		fenetre.setSize(1000, 700);
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setResizable(false);
@@ -29,14 +29,14 @@ public class Graph {
 	}
 
 	public void Victoire(String player) {
-		System.out.println("Le joueur " + player + " a gg");
+		System.out.println("Le joueur " + player + " a gagné");
 		JFrame fenetre = new JFrame();
 		fenetre.setTitle("Victoire!");
 		fenetre.pack();
 		fenetre.setSize(400, 100);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel panel = new JPanel();
-		JLabel label = new JLabel("Le joueur " + player + " a gg");
+		JLabel label = new JLabel("Le joueur " + player + " a gagné");
 		panel.add(label);
 		fenetre.setContentPane(panel);
 		fenetre.setVisible(true);
@@ -85,28 +85,25 @@ class Panneau extends JPanel implements MouseListener {
 			for (int j = 1; j < 9; j++) {
 
 				if ((i + j) % 2 == 0) {
-					g.setColor(Color.white);
+					g.setColor(Color.LIGHT_GRAY);
 				} else {
-					g.setColor(Color.black);
+					g.setColor(Color.GRAY);
 				}
 				g.fillRect(j * 80-50, i * 80-50, 80, 80);
 
 				if (tab[i-1][j-1].getColor().equals("b")) {
-					g.setColor(Color.RED);
+					g.setColor(Color.WHITE);
 				}
 
 				if (tab[i-1][j-1].getColor().equals("n")) {
-					g.setColor(Color.BLUE);
+					g.setColor(Color.BLACK);
 				}
-				g.fillOval(j * 80-50, i * 80-50, 80, 80);
+				g.fillOval(j * 80-40, i * 80-40, 60, 60);
+				
 
 			}
 		}
-		for (int i = 0; i < 9; i++) {
-			g.setColor(Color.BLACK);
-			g.drawRect(0, i * 80-50, 30, 80);
-			g.drawRect(i * 80-50,0, 80, 30);
-			}
+		g.setColor(Color.BLACK);
 		g.setFont(f);
 		g.drawString("A", 65, 20);
 		g.drawString("B", 145, 20);
@@ -124,8 +121,8 @@ class Panneau extends JPanel implements MouseListener {
 		g.drawString("6", 10, 475);
 		g.drawString("7", 10, 555);
 		g.drawString("8", 10, 635);
-		setBackground(Color.GRAY);
-		g.setColor(Color.BLACK);
+		setBackground(Color.WHITE);
+		g.setColor(Color.BLUE);
 		g.setFont(f);
 		g.drawString("C'est au tour du joueur: " + this.player, 690, 110);
 		g.drawString("Nombre de pions noirs: "+ Integer.toString(this.Plateau.getPionNoir()), 690,140);

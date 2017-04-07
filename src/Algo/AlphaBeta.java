@@ -1,4 +1,5 @@
-package fousfous;
+package Algo;
+import fousfous.Heuristiques;
 import fousfous.PlateauFousFous;
 
 public class AlphaBeta {
@@ -28,11 +29,10 @@ public class AlphaBeta {
 
 		for (String coup : plateau.mouvementPossibles(this.joueurMax)) {
 			if (coup != null) {
-
+				System.out.print("*");
 				PlateauFousFous tmp = plateau.copy();
 				tmp.play(coup, this.joueurMax);
 				int Max = maxMin(tmp, this.profMax - 1, alpha, beta);
-				System.out.print("*");
 				//System.out.println("coup: "+coup+", heuristique : "+Max);
 				if (alpha < Max) {
 					alpha = Max;
@@ -65,7 +65,7 @@ public class AlphaBeta {
 	
 	private int minMax(PlateauFousFous plateau, int prof, int alpha, int beta) {
 		if (plateau.finDePartie() || prof == 0) {
-			return this.h.eval(plateau, this.joueurMin);
+			return this.h.eval(plateau, this.joueurMax);
 		} else {
 			for (String c : plateau.mouvementPossibles(this.joueurMin)) {
 				if (c != null) {

@@ -1,5 +1,8 @@
 package fousfous;
 
+import Algo.AlphaBeta;
+import Algo.MiniMax;
+
 public class JoueurSuperFort implements IJoueur {
 
 	private PlateauFousFous Plateau;
@@ -19,6 +22,7 @@ public class JoueurSuperFort implements IJoueur {
 		this.colorE = mycolour == -1 ? "noir" : "blanc";
 		this.algo = new MiniMax(new Heuristiques(), this.colorA, this.colorE, this.profondeur);
 		this.algo2 = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE, this.profondeur);
+		
 	}
 
 	@Override
@@ -28,13 +32,19 @@ public class JoueurSuperFort implements IJoueur {
 
 	@Override
 	public String choixMouvement() {
+		
 		String best;
 		System.out.println("Voici mon plateau de jeu avant de choisir mon coup :");
 		this.Plateau.AffichePlateau();
 		System.out.println();
 		int movePossible = Plateau.mouvementPossibles(this.colorA).length;
+		System.out.print(movePossible+ " coups possibles: ");	
+		for (int i = 0; i < movePossible; i++) {
+			System.out.print(this.Plateau.mouvementPossibles(this.colorA )[i]+ " | ");
+		}
+		System.out.println();
 		if (movePossible > 20){
-			this.profondeur = 6;
+			this.profondeur = 7;
 			System.out.println("mon algo est alphaBeta et la profondeur est de " + this.profondeur);
 			this.algo2 = new AlphaBeta(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
 			best = this.algo2.meilleurCoup(this.Plateau);
@@ -48,11 +58,7 @@ public class JoueurSuperFort implements IJoueur {
 			this.algo = new MiniMax(new Heuristiques(), this.colorA, this.colorE,this.profondeur);
 			best = this.algo.meilleurCoup(this.Plateau);
 		}
-		System.out.print(movePossible+ " coups: ");	
-		for (int i = 0; i < movePossible; i++) {
-			System.out.print(this.Plateau.mouvementPossibles(this.colorA )[i]+ " | ");
-		}
-		System.out.println();
+		
 		System.out.println("mon coup est : " + best);
 		this.Plateau.play(best, this.colorA);
 		System.out.println("Voici mon plateau de jeu apres mon coup :");
